@@ -11,7 +11,7 @@ import styles from './styles';
 
 const Omnibox = (props) => {
 
-	const { onPress } = props;
+	const { onPress, value,  } = props;
 
 	
 
@@ -19,7 +19,8 @@ const Omnibox = (props) => {
 		<View style={styles.container}>
 			<View style={styles.inputform_wrapper}>
 				<TextInput
-					style={styles.inputform} 
+					style={styles.inputform}
+					value={ value } 
 					{...props} 
 				/>
 			</View>

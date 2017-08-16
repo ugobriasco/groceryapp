@@ -8,14 +8,20 @@ import {
 
 } from 'react-native';
 
-import { ListItem, Separator} 	from '../components/List';
+import { 
+	ListItem, 
+	Separator, 
+	ItemModel,
+} from '../components/List';
+
 import { DataListContainer } 	from '../components/Container';
 import { Omnibox } 				from '../components/TextInput';
 
 import { 
-	getInitialDataList, 
-	changeFilterText,
-	filterDatalist,
+	getInitialDataList,
+	changeFilterText, 
+	filterDataList,
+	updateDataList,
 } from '../actions/shoppinglist';
 
 class ShoppingList extends Component {
@@ -25,6 +31,7 @@ class ShoppingList extends Component {
 		getInitialDataList: PropTypes.func,
 		changeFilterText: PropTypes.func,
 		filterDatalist: PropTypes.func,
+		updateDataList: PropTypes.func,
 	}
 
 	componentWillMount(){
@@ -33,19 +40,27 @@ class ShoppingList extends Component {
 
 	handleAddPress(text){
 		console.log('add item', text);
+		let newItem = new ItemModel(text);
+		//let updatedList = this.props.dataList.push(newItem);
+		//this.props.dispatch(updateDataList(updatedList));
+		let i = {"_id": "1", pic: '',"name":{"it":{"main": text},"de":{"main": ''},"pl":{"main": ''}}};
+		let a = this.props.dataList;
+		a.push(i);
+		this.props.dispatch(updateDataList(a));
+		this.props.dispatch(filterDataList(a,''));
+
+
+		
+
 	}
 
 	handleFilterStrChange = (text) => {
-		//this.props.dispatch(changeFilterText(text));
-
 		let filteredList = this.props.dataList.filter((item) =>
 			item.name.it.main.match(new RegExp('.*' + text +'.*', 'gi'))  ||
 			item.name.de.main.match(new RegExp('.*' + text +'.*', 'gi'))  ||
 			item.name.pl.main.match(new RegExp('.*' + text +'.*', 'gi'))
 		);
-
-		//console.log(filteredList);
-		this.props.dispatch(filterDatalist(filteredList));
+		this.props.dispatch(filterDataList(filteredList, text));
 
 
 
@@ -72,8 +87,9 @@ class ShoppingList extends Component {
 					itemSeparatorComponent = {Separator}
 				/>
 				<Omnibox
-					onPress={this.handleAddPress}
+					onPress={() => this.handleAddPress(this.props.filterString)}
 					onChangeText= {this.handleFilterStrChange}
+					value = {this.props.filterString}
 
 				/>
 			</DataListContainer>
@@ -86,6 +102,7 @@ class ShoppingList extends Component {
 const mapStateToProps = (state) => {
 	return{
 		dataList: state.shoppinglist.dataList,
+		filterString: state.shoppinglist.filterString,
 		filteredDataList: state.shoppinglist.filteredList,
 	};
 }

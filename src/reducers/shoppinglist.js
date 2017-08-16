@@ -1,10 +1,11 @@
 import {
 	GET_INITIAL_DATALIST,
 	CHANGE_FILTER_STR,
-	UPDATE_FILTERED_LIST,
+	FILTER_DATALIST,
+	UPDATE_DATALIST,
 } from '../actions/shoppinglist';
 
-import mockupData from  '../data/mockupData';
+import mockupData from  '../data/data';
 
 const initialState = {
 	dataList: mockupData,
@@ -20,10 +21,16 @@ const reducer = (state = initialState, action) => {
 				...state,
 				filterString: action.filterString || '',
 			};
-		case UPDATE_FILTERED_LIST:
+		case FILTER_DATALIST:
 			return {
 				...state,
 				filteredList: action.filteredList || dataList,
+				filterString: action.filterString || '',
+			};
+		case UPDATE_DATALIST:
+			return {
+				...state,
+				dataList: action.updatedList,
 			};
 		default:
 			return state;
