@@ -1,28 +1,11 @@
-const item = {
-	"_id":"",
-	"pic":"",
-	"__v":0,
-	"name":{
-		"de":{
-			"main":"",
-			"spec":""
-		},
-		"pl":{
-			"main":"",
-			"spec":""},
-		"it":{
-			"main":"",
-			"spec":""}
-		},
-	"completed": false
-	}
-
-class ItemModel{
-  constructor(title, completed){
-    this.name = {"it":{"main": title}};
-    this.completed = completed || false;
+ class ItemModel{
+  constructor(title, title2, title3, imgUrl, isCompleted){
+    this.title = title;
+    this.title2 = title2 || '';
+    this.title3 = title3 || '';
+    this.imgUrl = imgUrl || '';
+    this.isCompleted = isCompleted || false;
     this.cretedAt = new Date();
-
   }
 }
 

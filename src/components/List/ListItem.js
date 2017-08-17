@@ -1,5 +1,6 @@
 import React from 'react';
 import {
+	TouchableOpacity,
 	TouchableHighlight,
 	View,
 	Text,
@@ -16,6 +17,8 @@ const ListItem = ({
 	subtitle1,
 	subtitle2,
 	imageSource,
+	onCheckBoxPress,
+	isMarked,
 }) => {
 
 
@@ -27,9 +30,24 @@ const ListItem = ({
 	);
 	else img = (<View></View>);
 
+	let iconName = isMarked === true ? 'check-box' : 'check-box-outline-blank';
+
 	return(
 		<TouchableHighlight>
 			<View style={styles.container}>
+				<View style={styles.checkbox_container}>
+					<Icon.Button
+						name={iconName}
+						color='#777'
+						backgroundColor='rgba(0,0,0,0)'
+						underlayColor='rgba(0,0,0,0)'
+						size={30}
+						iconStyle={{marginLeft: -10, marginRight: 0}}
+						activeOpacity={1}
+						borderRadius={5}
+						onPress={onCheckBoxPress}
+					/>
+				</View>
 				<View style={styles.contentBox}>
 					<Text style = {styles.title_text}>{title}</Text>
 					<Text style = {styles.subtitle_text}>{subtitle1}</Text>

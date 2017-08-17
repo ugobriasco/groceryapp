@@ -12,6 +12,7 @@ Estylesheet.build({
 	$brandingBackground: '#18bc9c',
 	$primaryBackground: '#FFFF',
 	$primaryBoxColor: '#EFF0F1',
+	$primaryTextColor: '#777777',
 	$border: '#77777b',
 
 });

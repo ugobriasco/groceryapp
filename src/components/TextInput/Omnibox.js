@@ -13,8 +13,6 @@ const Omnibox = (props) => {
 
 	const { onPress, value,  } = props;
 
-	
-
 	return(
 		<View style={styles.container}>
 			<View style={styles.inputform_wrapper}>

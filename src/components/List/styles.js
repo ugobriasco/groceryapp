@@ -19,6 +19,10 @@ export default EStyleSheet.create({
 	checkbox_container:{
 	    paddingLeft: 10,   
 	},
+	checkbox:{
+		backgroundColor: "$primaryBoxColor",
+		overlayColor: "$primaryBoxColor",
+	},
 	contentBox: {
 	    flex: 1,
 	    flexDirection: 'column'

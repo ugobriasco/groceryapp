@@ -11,17 +11,18 @@ import {
 import { 
 	ListItem, 
 	Separator, 
-	ItemModel,
 } from '../components/List';
 
-import { DataListContainer } 	from '../components/Container';
-import { Omnibox } 				from '../components/TextInput';
+import ItemModel from '../components/List/ItemModel';
+import { DataListContainer } from '../components/Container';
+import { Omnibox } from '../components/TextInput';
 
 import { 
 	getInitialDataList,
 	changeFilterText, 
 	filterDataList,
 	updateDataList,
+	updateLists,
 } from '../actions/shoppinglist';
 
 class ShoppingList extends Component {
@@ -39,32 +40,35 @@ class ShoppingList extends Component {
 	}
 
 	handleAddPress(text){
-		console.log('add item', text);
-		let newItem = new ItemModel(text);
-		//let updatedList = this.props.dataList.push(newItem);
-		//this.props.dispatch(updateDataList(updatedList));
-		let i = {"_id": "1", pic: '',"name":{"it":{"main": text},"de":{"main": ''},"pl":{"main": ''}}};
-		let a = this.props.dataList;
-		a.push(i);
-		this.props.dispatch(updateDataList(a));
-		this.props.dispatch(filterDataList(a,''));
+		if(text){
+			const data = this.props.dataList;
+			let arr = [new ItemModel(text)];
+			arr = arr.concat(data);
+			this.props.dispatch(updateDataList(arr));
+			this.props.dispatch(filterDataList(arr,''));			
+		}
+	}
 
-
-		
-
+	handleCheckBoxPress(item){
+		const i = this.props.dataList.indexOf(item);
+		let arr = this.props.dataList;
+		if(arr[i].isCompleted === false) arr[i].isCompleted = true;
+		else arr[i].isCompleted = false;
+		this.props.dispatch(updateDataList(arr));
+		this.props.dispatch(filterDataList(arr,''));
+		this.forceUpdate();
 	}
 
 	handleFilterStrChange = (text) => {
 		let filteredList = this.props.dataList.filter((item) =>
-			item.name.it.main.match(new RegExp('.*' + text +'.*', 'gi'))  ||
-			item.name.de.main.match(new RegExp('.*' + text +'.*', 'gi'))  ||
-			item.name.pl.main.match(new RegExp('.*' + text +'.*', 'gi'))
+			item.title.match(new RegExp('.*' + text +'.*', 'gi'))  ||
+			item.title2.match(new RegExp('.*' + text +'.*', 'gi'))  ||
+			item.title3.match(new RegExp('.*' + text +'.*', 'gi'))
 		);
 		this.props.dispatch(filterDataList(filteredList, text));
-
-
-
 	}
+
+	
 
 	render(){
 		return(
@@ -75,14 +79,16 @@ class ShoppingList extends Component {
 					data={this.props.filteredDataList}
 					renderItem={({item}) => (
 						<ListItem
-							title={item.name.it.main}
-							subtitle1={item.name.de.main}
-							subtitle2={item.name.pl.main}
-							imageSource={item.pic}
+							title={item.title}
+							subtitle1={item.title2}
+							subtitle2={item.title3}
+							imageSource={item.imgUrl}
+							isMarked={item.isCompleted}
+							onCheckBoxPress={() => {this.handleCheckBoxPress(item)}}
 						/>
 					)}
 					keyExtractor = {
-						item => item.pic
+						item => item.cretedAt
 					}
 					itemSeparatorComponent = {Separator}
 				/>

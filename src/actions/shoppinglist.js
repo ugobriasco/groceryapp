@@ -2,6 +2,7 @@ export const GET_INITIAL_DATALIST =' GET_INITIAL_DATALIST';
 export const CHANGE_FILTER_STR = 'CHANGE_FILTER_STR';
 export const FILTER_DATALIST ='FILTER_DATALIST';
 export const UPDATE_DATALIST = 'UPDATE_DATALIST';
+export const UPDATE_ALL_LISTS = 'UPDATE_ALL_LISTS';
 
 export const getInitialDataList = () => ({
 	type: GET_INITIAL_DATALIST,
@@ -24,4 +25,10 @@ export const updateDataList = (updatedList) => ({
 	updatedList,
 
 });
+
+export const updateLists = (updatedList) => ({
+	type: UPDATE_ALL_LISTS,
+	updatedList,
+})
+
 

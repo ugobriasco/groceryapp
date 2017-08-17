@@ -3,9 +3,15 @@ import {
 	CHANGE_FILTER_STR,
 	FILTER_DATALIST,
 	UPDATE_DATALIST,
+	UPDATE_ALL_LISTS,
 } from '../actions/shoppinglist';
 
-import mockupData from  '../data/data';
+//import mockupData from  '../data/data';
+import ItemModel from '../components/List/ItemModel'
+
+const mockupData = [
+  new ItemModel('Mele','Äpfel','Jabłka','http://knowledge.wharton.upenn.edu/wp-content/uploads/2014/03/apple-1024x440.jpg'),
+];
 
 const initialState = {
 	dataList: mockupData,
@@ -32,6 +38,12 @@ const reducer = (state = initialState, action) => {
 				...state,
 				dataList: action.updatedList,
 			};
+		case UPDATE_ALL_LISTS:
+			return {
+				...state,
+				dataList: action.updatedList,
+				filteredList: action.updatedList,
+			}
 		default:
 			return state;
 	}
