@@ -20,7 +20,7 @@ const ListItem = ({
 	onCheckBoxPress,
 	onSwipeRightComplete,
 	onSwipeLeftComplete,
-	isMarked,
+	isChecked,
 }) => {
 	
 	//handle item image
@@ -33,9 +33,9 @@ const ListItem = ({
 	else img = (<View></View>);
 
 	//handle checkbox
-	let iconName = isMarked === true ? 'check-box' : 'check-box-outline-blank';
+	let iconName = isChecked === true ? 'check-box' : 'check-box-outline-blank';
 
-	let switchMark = isMarked === true 
+	let switchMark = isChecked === true 
 		? <Text style= {styles.leftSwipeText} >Unmark</Text> 
 		: <Text style= {styles.leftSwipeText} >Mark</Text>
 

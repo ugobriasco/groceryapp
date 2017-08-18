@@ -60,6 +60,8 @@ export default EStyleSheet.create({
 		paddingLeft: 20,
 	},
 	rightSwipeText:{
+		fontSize: 18,
+		fontWeight: 'bold',
 		paddingLeft: 20,
 		color: '#fff',
 	},

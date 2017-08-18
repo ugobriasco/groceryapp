@@ -18,12 +18,15 @@ const Omnibox = (props) => {
 			<View style={styles.inputform_wrapper}>
 				<TextInput
 					style={styles.inputform}
-					value={ value } 
+					value={ value }
+					placeholder='Add an item or Search'
+					blurOnSubmit={false}
 					{...props} 
 				/>
 			</View>
 			<View style={styles.button_wrapper}>
 				<Button
+					color='#18bc9c'
 					title="add"
 					onPress={onPress}
 				/>
@@ -35,8 +38,9 @@ const Omnibox = (props) => {
 
 Omnibox.PropTypes = {
 	onPress: PropTypes.func,
-	
 
 };
+
+
 
 export default Omnibox;

@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import { 
 	ListItem, 
-	Separator, 
+	styles, 
 } from '../components/List';
 
 import ItemModel from '../components/List/ItemModel';
@@ -104,11 +104,6 @@ class ShoppingList extends Component {
 	handleFilterStrChange = 	(text) => {text ? this.filterList(text) : null} 
 	handleSwipeRightComplete = 	(item) => {item ? this.removeItem(item) : null}
 
-	//UI elements
-	
-	
-
-
 	render(){
 
 		return(
@@ -123,7 +118,7 @@ class ShoppingList extends Component {
 							subtitle1={item.title2}
 							subtitle2={item.title3}
 							imageSource={item.imgUrl}
-							isMarked={item.isCompleted}
+							isChecked={item.isCompleted}
 							onCheckBoxPress={() => {this.handleCheckBoxPress(item)}}
 							onSwipeRightComplete={() => {this.handleSwipeRightComplete(item)}}
 							onSwipeLeftComplete= {() => {this.handleCheckBoxPress(item)}}

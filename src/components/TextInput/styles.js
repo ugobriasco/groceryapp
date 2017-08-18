@@ -2,9 +2,10 @@ import EStyleSheet from 'react-native-extended-stylesheet';
 import { StyleSheet } from 'react-native';
 
 export default EStyleSheet.create({
+	
 	container: {
 	    flexDirection: 'row',
-	    height: 60,
+	    height: 50,
 	    padding: 4,
 	    marginBottom: 0,
 	    borderWidth: 1, 
@@ -22,5 +23,7 @@ export default EStyleSheet.create({
   	inputform:{
 	    fontSize: 16,
   	}
+
+
 	
 });
