@@ -63,6 +63,24 @@ export default EStyleSheet.create({
 		paddingLeft: 20,
 		color: '#fff',
 	},
+	leftSwipeWrapper: {
+	    flex: 1,
+	    flexDirection: 'row',
+	    marginTop: '$boxMargin',
+	    backgroundColor: '$brandingBackground',
+	    minHeight: '$boxMinHeight',
+		alignItems: 'center',
+		justifyContent: 'flex-end',
+	},
+	leftSwipeIcon:{
+		paddingRight: 20,
+	},
+	leftSwipeText:{
+		fontSize: 18,
+		fontWeight: 'bold',
+		paddingRight: 20,
+		color: '#fff',
+	},
 	separator: {
 		marginLeft: 20,
 		backgroundColor: '$border',

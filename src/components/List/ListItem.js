@@ -19,6 +19,7 @@ const ListItem = ({
 	imageSource,
 	onCheckBoxPress,
 	onSwipeRightComplete,
+	onSwipeLeftComplete,
 	isMarked,
 }) => {
 	
@@ -34,19 +35,32 @@ const ListItem = ({
 	//handle checkbox
 	let iconName = isMarked === true ? 'check-box' : 'check-box-outline-blank';
 
+	let switchMark = isMarked === true 
+		? <Text style= {styles.leftSwipeText} >Unmark</Text> 
+		: <Text style= {styles.leftSwipeText} >Mark</Text>
+
 	
  
 	return(
 		<Swipeable 
 			rightActionActivationDistance={200}
+			leftActionActivationDistance={200}
+			
 			rightContent={(
 				<View style={styles.rightSwipeWrapper}>
 		          <Icon style={styles.rightSwipeIcon} name="delete" size={40} color="#fff"/>
-		          <Text style={styles.rightSwipeText}>Slide to delete ...</Text>
+		          <Text style={styles.rightSwipeText}>Swipe to delete ...</Text>
 		        </View>
         	)}
+
+        	leftContent={(
+				<View style={styles.leftSwipeWrapper}>
+		          {switchMark}
+		        </View>
+        	)}
+
         	onRightActionComplete={onSwipeRightComplete}
-        	
+        	onLeftActionComplete={onSwipeLeftComplete}
 		>
 			<View style={styles.container}>
 				<View style={styles.checkbox_container}>

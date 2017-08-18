@@ -7,7 +7,6 @@ import {
 	FlatList, 
 
 } from 'react-native';
-
 import { 
 	ListItem, 
 	Separator, 
@@ -16,7 +15,6 @@ import {
 import ItemModel from '../components/List/ItemModel';
 import { DataListContainer } from '../components/Container';
 import { Omnibox } from '../components/TextInput';
-
 import { 
 	getInitialDataList,
 	changeFilterText,
@@ -36,6 +34,7 @@ const remove = (array, index) => {
 
 class ShoppingList extends Component {
 
+	//to update
 	static propTypes = {
 		dispatch: PropTypes.func,
 		getInitialDataList: PropTypes.func,
@@ -49,18 +48,16 @@ class ShoppingList extends Component {
 		this.props.dispatch(getInitialDataList());
 	}
 
-	handleAddPress(text){
-		if(text){
-			const data = this.props.dataList;
-			let arr = [new ItemModel(text)];
-			arr = arr.concat(data);
-			this.props.dispatch(updateDataList(arr));
-			this.props.dispatch(syncLists(arr));
-			this.props.dispatch(changeFilterText(''));			
-		}
+	//dispatch the changes to the list, clear filter ans force update;
+	save = (list) => {
+		this.props.dispatch(updateListView(list));
+		this.props.dispatch(syncLists(list));
+		this.props.dispatch(changeFilterText(''));
+		this.forceUpdate();
 	}
 
-	handleCheckBoxPress = (item) => {
+	//switch item.isCompleted and move it to the top/bottom of the list
+	markItem = (item) => {
 		const i = this.props.dataList.indexOf(item);
 		let size = this.props.dataList.length;
 		let arr = this.props.dataList;
@@ -72,14 +69,24 @@ class ShoppingList extends Component {
 			arr[i].isCompleted = false;
 			move(arr,i,0);
 		} // if not completed, item moved to the top
-		
-		this.props.dispatch(updateListView(arr));
-		this.props.dispatch(syncLists(arr));
-		this.props.dispatch(changeFilterText(''));
-		this.forceUpdate();
+		this.save(arr);
 	}
-
-	handleFilterStrChange = (text) => {
+	//add an item to the top of the list
+	addItem = (text) => {
+		const data = this.props.dataList;
+		let arr = [new ItemModel(text)];
+		arr = arr.concat(data);
+		this.save(arr);
+	}
+	//remove an item from the list
+	removeItem = (item) => {
+		const i = this.props.dataList.indexOf(item);
+		let arr = this.props.dataList;
+		remove(arr,i);
+		this.save(arr);	
+	}
+	//update the listview by filtering the datalist with a given text
+	filterList = (text) => {
 		let filteredList = this.props.dataList.filter((item) =>
 			item.title.match(new RegExp('.*' + text +'.*', 'gi'))  ||
 			item.title2.match(new RegExp('.*' + text +'.*', 'gi'))  ||
@@ -89,18 +96,21 @@ class ShoppingList extends Component {
 		this.props.dispatch(changeFilterText(text));
 	}
 
-	handleSwipeRightComplete = (item) => {
-		const i = this.props.dataList.indexOf(item);
-		let arr = this.props.dataList;
-		remove(arr,i);
-		this.props.dispatch(updateDataList(arr));
-		this.props.dispatch(syncLists(arr));
-		this.props.dispatch(changeFilterText(''));
-		this.forceUpdate();	
-	}
+
+
+	//UI handling
+	handleAddPress = 			(text) => {text ? this.addItem(text) : null}
+	handleCheckBoxPress = 		(item) => {item ? this.markItem(item) : null}
+	handleFilterStrChange = 	(text) => {text ? this.filterList(text) : null} 
+	handleSwipeRightComplete = 	(item) => {item ? this.removeItem(item) : null}
+
+	//UI elements
+	
+	
 
 
 	render(){
+
 		return(
 			<DataListContainer>
 				<StatusBar translucent={false} barStyle="default"/>
@@ -115,7 +125,8 @@ class ShoppingList extends Component {
 							imageSource={item.imgUrl}
 							isMarked={item.isCompleted}
 							onCheckBoxPress={() => {this.handleCheckBoxPress(item)}}
-							onSwipeRightComplete={ () => {this.handleSwipeRightComplete(item)}}
+							onSwipeRightComplete={() => {this.handleSwipeRightComplete(item)}}
+							onSwipeLeftComplete= {() => {this.handleCheckBoxPress(item)}}
 						/>
 					)}
 					keyExtractor = {
