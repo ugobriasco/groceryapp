@@ -2,16 +2,16 @@ import EStyleSheet from 'react-native-extended-stylesheet';
 import { StyleSheet } from 'react-native';
 
 export default EStyleSheet.create({
+	
+	$boxMargin: 10,
+	$boxMinHeight: 60,
+
+
 	container: {
 	    flexDirection: 'row',  
 	    backgroundColor: "$primaryBoxColor", 
-	    borderBottomWidth:1, 
-	    borderColor: '#eee',
-	    minHeight: 60,
-	    paddingLeft: 10,
-	    paddingTop: 10,
-	    paddingBottom: 10,
-	    marginTop: 10,
+	    minHeight: '$boxMinHeight',
+	    marginTop: '$boxMargin',
 	    marginLeft: 10,
 	    marginRight: 10,
 	
@@ -25,7 +25,10 @@ export default EStyleSheet.create({
 	},
 	contentBox: {
 	    flex: 1,
-	    flexDirection: 'column'
+	    flexDirection: 'column',
+	    paddingLeft: 10,
+	    paddingTop: 10,
+	    paddingBottom: 10,
 	},
 	title_text:{
 		fontSize: 18,
@@ -35,14 +38,30 @@ export default EStyleSheet.create({
 
 	},
 	imageBox: {
+		minHeight: '$boxMinHeight',
 		flex: 0.4,
 	    flexDirection: 'row',
 	    justifyContent: 'flex-end'
 	},
 	card_image:{
-	    width:60,
+	    width: 70,
 	    marginRight: 0,
 	    resizeMode: 'cover'
+	},
+	rightSwipeWrapper: {
+	    flex: 1,
+	    flexDirection: 'row',
+	    marginTop: '$boxMargin',
+	    backgroundColor: '$dangerBackground',
+	    minHeight: '$boxMinHeight',
+		alignItems: 'center',
+	},
+	rightSwipeIcon:{
+		paddingLeft: 20,
+	},
+	rightSwipeText:{
+		paddingLeft: 20,
+		color: '#fff',
 	},
 	separator: {
 		marginLeft: 20,

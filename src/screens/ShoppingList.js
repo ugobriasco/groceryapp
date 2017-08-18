@@ -19,11 +19,20 @@ import { Omnibox } from '../components/TextInput';
 
 import { 
 	getInitialDataList,
-	changeFilterText, 
-	filterDataList,
+	changeFilterText,
+	updateListView,
 	updateDataList,
-	updateLists,
+	syncLists, 
+	
 } from '../actions/shoppinglist';
+
+const move = (array, fromIndex, toIndex) => {
+	return array.splice(toIndex, 0, array.splice(fromIndex, 1)[0]);
+};
+
+const remove = (array, index) => {
+	return array.splice(index, 1);
+};
 
 class ShoppingList extends Component {
 
@@ -31,8 +40,9 @@ class ShoppingList extends Component {
 		dispatch: PropTypes.func,
 		getInitialDataList: PropTypes.func,
 		changeFilterText: PropTypes.func,
-		filterDatalist: PropTypes.func,
+		updateListView: PropTypes.func,
 		updateDataList: PropTypes.func,
+		syncLists: PropTypes.func,
 	}
 
 	componentWillMount(){
@@ -45,17 +55,27 @@ class ShoppingList extends Component {
 			let arr = [new ItemModel(text)];
 			arr = arr.concat(data);
 			this.props.dispatch(updateDataList(arr));
-			this.props.dispatch(filterDataList(arr,''));			
+			this.props.dispatch(syncLists(arr));
+			this.props.dispatch(changeFilterText(''));			
 		}
 	}
 
-	handleCheckBoxPress(item){
+	handleCheckBoxPress = (item) => {
 		const i = this.props.dataList.indexOf(item);
+		let size = this.props.dataList.length;
 		let arr = this.props.dataList;
-		if(arr[i].isCompleted === false) arr[i].isCompleted = true;
-		else arr[i].isCompleted = false;
-		this.props.dispatch(updateDataList(arr));
-		this.props.dispatch(filterDataList(arr,''));
+		if(arr[i].isCompleted === false) {
+			arr[i].isCompleted = true;
+			move(arr,i,size);
+		} //if completed, item move to the bottom
+		else {
+			arr[i].isCompleted = false;
+			move(arr,i,0);
+		} // if not completed, item moved to the top
+		
+		this.props.dispatch(updateListView(arr));
+		this.props.dispatch(syncLists(arr));
+		this.props.dispatch(changeFilterText(''));
 		this.forceUpdate();
 	}
 
@@ -65,10 +85,20 @@ class ShoppingList extends Component {
 			item.title2.match(new RegExp('.*' + text +'.*', 'gi'))  ||
 			item.title3.match(new RegExp('.*' + text +'.*', 'gi'))
 		);
-		this.props.dispatch(filterDataList(filteredList, text));
+		this.props.dispatch(updateListView(filteredList));
+		this.props.dispatch(changeFilterText(text));
 	}
 
-	
+	handleSwipeRightComplete = (item) => {
+		const i = this.props.dataList.indexOf(item);
+		let arr = this.props.dataList;
+		remove(arr,i);
+		this.props.dispatch(updateDataList(arr));
+		this.props.dispatch(syncLists(arr));
+		this.props.dispatch(changeFilterText(''));
+		this.forceUpdate();	
+	}
+
 
 	render(){
 		return(
@@ -76,7 +106,7 @@ class ShoppingList extends Component {
 				<StatusBar translucent={false} barStyle="default"/>
 				<FlatList
 					style = {{flex: 1}}
-					data={this.props.filteredDataList}
+					data={this.props.listView}
 					renderItem={({item}) => (
 						<ListItem
 							title={item.title}
@@ -85,31 +115,33 @@ class ShoppingList extends Component {
 							imageSource={item.imgUrl}
 							isMarked={item.isCompleted}
 							onCheckBoxPress={() => {this.handleCheckBoxPress(item)}}
+							onSwipeRightComplete={ () => {this.handleSwipeRightComplete(item)}}
 						/>
 					)}
 					keyExtractor = {
 						item => item.cretedAt
 					}
-					itemSeparatorComponent = {Separator}
+					
 				/>
 				<Omnibox
 					onPress={() => this.handleAddPress(this.props.filterString)}
 					onChangeText= {this.handleFilterStrChange}
 					value = {this.props.filterString}
-
 				/>
 			</DataListContainer>
 			
 		);
 	}
-
 }
+
+
 
 const mapStateToProps = (state) => {
 	return{
 		dataList: state.shoppinglist.dataList,
-		filterString: state.shoppinglist.filterString,
+		listView: state.shoppinglist.listView,
 		filteredDataList: state.shoppinglist.filteredList,
+		filterString: state.shoppinglist.filterString,
 	};
 }
 

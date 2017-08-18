@@ -11,6 +11,7 @@ import ShoppingList from './screens/ShoppingList';
 Estylesheet.build({
 	$brandingBackground: '#18bc9c',
 	$primaryBackground: '#FFFF',
+	$dangerBackground: '#ea5a4d',
 	$primaryBoxColor: '#EFF0F1',
 	$primaryTextColor: '#777777',
 	$border: '#77777b',

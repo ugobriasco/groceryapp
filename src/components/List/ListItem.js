@@ -6,7 +6,7 @@ import {
 	Text,
 	Image,
 } from 'react-native';
-
+import Swipeable from 'react-native-swipeable';
 import PropTypes from 'prop-types';
 import Icon from  'react-native-vector-icons/MaterialIcons';
 
@@ -18,10 +18,11 @@ const ListItem = ({
 	subtitle2,
 	imageSource,
 	onCheckBoxPress,
+	onSwipeRightComplete,
 	isMarked,
 }) => {
-
-
+	
+	//handle item image
 	if(imageSource) img = (
 		<Image 
 		style={styles.card_image} 
@@ -30,18 +31,31 @@ const ListItem = ({
 	);
 	else img = (<View></View>);
 
+	//handle checkbox
 	let iconName = isMarked === true ? 'check-box' : 'check-box-outline-blank';
 
+	
+ 
 	return(
-		<TouchableHighlight>
+		<Swipeable 
+			rightActionActivationDistance={200}
+			rightContent={(
+				<View style={styles.rightSwipeWrapper}>
+		          <Icon style={styles.rightSwipeIcon} name="delete" size={40} color="#fff"/>
+		          <Text style={styles.rightSwipeText}>Slide to delete ...</Text>
+		        </View>
+        	)}
+        	onRightActionComplete={onSwipeRightComplete}
+        	
+		>
 			<View style={styles.container}>
 				<View style={styles.checkbox_container}>
 					<Icon.Button
 						name={iconName}
 						color='#777'
-						backgroundColor='rgba(0,0,0,0)'
-						underlayColor='rgba(0,0,0,0)'
-						size={30}
+						backgroundColor ='rgba(0,0,0,0)'
+						underlayColor ='rgba(0,0,0,0)'
+						size = {30}
 						iconStyle={{marginLeft: -10, marginRight: 0}}
 						activeOpacity={1}
 						borderRadius={5}
@@ -57,7 +71,7 @@ const ListItem = ({
 					{img}
 				</View>
 			</View>
-		</TouchableHighlight>
+		</Swipeable>
 
 	);
 };

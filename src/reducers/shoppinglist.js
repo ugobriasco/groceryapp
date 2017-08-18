@@ -1,9 +1,9 @@
 import {
 	GET_INITIAL_DATALIST,
 	CHANGE_FILTER_STR,
-	FILTER_DATALIST,
+	SYNC_LISTS,
+	UPDATE_LISTVIEW,
 	UPDATE_DATALIST,
-	UPDATE_ALL_LISTS,
 } from '../actions/shoppinglist';
 
 //import mockupData from  '../data/data';
@@ -15,7 +15,7 @@ const mockupData = [
 
 const initialState = {
 	dataList: mockupData,
-	filteredList: mockupData,
+	listView: mockupData,
 	filterString: '',
 	error: null,
 }
@@ -27,22 +27,21 @@ const reducer = (state = initialState, action) => {
 				...state,
 				filterString: action.filterString || '',
 			};
-		case FILTER_DATALIST:
+		case SYNC_LISTS:
 			return {
 				...state,
-				filteredList: action.filteredList || dataList,
-				filterString: action.filterString || '',
-			};
+				dataList: action.listToBeSynced,
+				listView: action.listToBeSynced,
+			}
+		case UPDATE_LISTVIEW:
+			return {
+				...state,
+				listView: action.updatedList,
+			}
 		case UPDATE_DATALIST:
 			return {
 				...state,
 				dataList: action.updatedList,
-			};
-		case UPDATE_ALL_LISTS:
-			return {
-				...state,
-				dataList: action.updatedList,
-				filteredList: action.updatedList,
 			}
 		default:
 			return state;
