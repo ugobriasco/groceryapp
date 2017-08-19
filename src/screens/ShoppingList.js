@@ -5,10 +5,9 @@ import {
 	StatusBar,
 	View,
 	FlatList,
-	Text,
 } from 'react-native';
 import { 
-	ListItem,
+	ItemToShoppingList,
 	EmptyListPlaceholder, 
 	styles, 
 } from '../components/List';
@@ -21,8 +20,7 @@ import {
 	changeFilterText,
 	updateListView,
 	updateDataList,
-	syncLists, 
-	
+	syncLists, 	
 } from '../actions/shoppinglist';
 
 const move = (array, fromIndex, toIndex) => {
@@ -110,6 +108,8 @@ class ShoppingList extends Component {
 
 	render(){
 
+		
+
 		//conditional rendering, depending to the size of the datalists
 		let renderedListView = (<View></View>);
 		if(this.props.listView.length === 0 && this.props.dataList.length === 0) {
@@ -124,7 +124,7 @@ class ShoppingList extends Component {
 					style = {{flex: 1}}
 					data={this.props.listView}
 					renderItem={({item}) => (
-						<ListItem
+						<ItemToShoppingList
 							title={item.title}
 							subtitle1={item.title2}
 							subtitle2={item.title3}
@@ -141,6 +141,8 @@ class ShoppingList extends Component {
 				/>
 			);
 		}
+
+		
 
 		return(
 			<DataListContainer>

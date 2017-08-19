@@ -7,6 +7,7 @@ import store from './config/store';
 
 import Home from './screens/Home';
 import ShoppingList from './screens/ShoppingList';
+import AvailableGroceries from './screens/AvailableGroceries';
 
 Estylesheet.build({
 	$brandingBackground: '#18bc9c',

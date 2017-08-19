@@ -12,7 +12,7 @@ import Icon from  'react-native-vector-icons/MaterialIcons';
 
 import styles from './styles';
 
-const ListItem = ({
+const ItemToShoppingList = ({
 	title,
 	subtitle1,
 	subtitle2,
@@ -34,17 +34,18 @@ const ListItem = ({
 
 	//handle checkbox
 	let iconName = isChecked === true ? 'check-box' : 'check-box-outline-blank';
+
 	let switchMark = isChecked === true 
 		? <Text style= {styles.leftSwipeText}>Swipe to unmark</Text> 
 		: <Text style= {styles.leftSwipeText}>Swipe to mark</Text>
 
 	//handle swipe content
 	const rightContent = (
-		<View style={styles.rightSwipeWrapper}>
+		<View style={styles.rightSwipeWrapperDanger}>
 		        <Icon style={styles.rightSwipeIcon} name="delete" size={40} color="#fff"/>
 		        <Text style={styles.rightSwipeText}>Swipe to delete</Text>
         </View>
-	)
+	) 
 	const leftContent=(
 		<View style={styles.leftSwipeWrapper}>
           {switchMark}
@@ -90,11 +91,11 @@ const ListItem = ({
 	);
 };
 
-ListItem.PropTypes = {
+ItemToShoppingList.PropTypes = {
 	title: PropTypes.string,
 	subtitle1: PropTypes.string,
 	subtitle2: PropTypes.string,
 	imageSource: PropTypes.string,
 };
 
-export default ListItem;
+export default ItemToShoppingList;

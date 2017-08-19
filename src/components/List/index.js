@@ -1,6 +1,7 @@
-import ListItem from './ListItem';
+import ItemToShoppingList from './ItemToShoppingList';
+import ItemToGroceries from './ItemToGroceries';
 import Separator from './Separator';
 import EmptyListPlaceholder from './EmptyListPlaceholder';
 import styles from './styles';
 
-export { ListItem, Separator, EmptyListPlaceholder, styles };
+export { ItemToShoppingList, ItemToGroceries, Separator, EmptyListPlaceholder, styles };
