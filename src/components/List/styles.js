@@ -89,4 +89,14 @@ export default EStyleSheet.create({
 		flex: 1,
 		height: StyleSheet.hairlineWidth,
 	},
+	emptyListWrapper: {
+		flex: 1,
+		alignItems: 'center',
+		justifyContent: 'center',
+	},
+	placeholderText: {
+		fontSize: 18,
+		color:'$brandingBackground'
+
+	}
 });

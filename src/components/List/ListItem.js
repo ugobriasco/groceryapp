@@ -34,31 +34,31 @@ const ListItem = ({
 
 	//handle checkbox
 	let iconName = isChecked === true ? 'check-box' : 'check-box-outline-blank';
-
 	let switchMark = isChecked === true 
-		? <Text style= {styles.leftSwipeText} >Unmark</Text> 
-		: <Text style= {styles.leftSwipeText} >Mark</Text>
+		? <Text style= {styles.leftSwipeText}>Swipe to unmark</Text> 
+		: <Text style= {styles.leftSwipeText}>Swipe to mark</Text>
+
+	//handle swipe content
+	const rightContent = (
+		<View style={styles.rightSwipeWrapper}>
+		        <Icon style={styles.rightSwipeIcon} name="delete" size={40} color="#fff"/>
+		        <Text style={styles.rightSwipeText}>Swipe to delete</Text>
+        </View>
+	)
+	const leftContent=(
+		<View style={styles.leftSwipeWrapper}>
+          {switchMark}
+        </View>
+	)
 
 	
  
 	return(
 		<Swipeable 
 			rightActionActivationDistance={200}
-			leftActionActivationDistance={200}
-			
-			rightContent={(
-				<View style={styles.rightSwipeWrapper}>
-		          <Icon style={styles.rightSwipeIcon} name="delete" size={40} color="#fff"/>
-		          <Text style={styles.rightSwipeText}>Swipe to delete ...</Text>
-		        </View>
-        	)}
-
-        	leftContent={(
-				<View style={styles.leftSwipeWrapper}>
-		          {switchMark}
-		        </View>
-        	)}
-
+			leftActionActivationDistance={200}		
+			rightContent={rightContent}
+        	leftContent={leftContent}
         	onRightActionComplete={onSwipeRightComplete}
         	onLeftActionComplete={onSwipeLeftComplete}
 		>
@@ -95,7 +95,6 @@ ListItem.PropTypes = {
 	subtitle1: PropTypes.string,
 	subtitle2: PropTypes.string,
 	imageSource: PropTypes.string,
-
 };
 
 export default ListItem;

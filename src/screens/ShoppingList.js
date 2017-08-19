@@ -4,11 +4,12 @@ import { connect } from 'react-redux';
 import { 
 	StatusBar,
 	View,
-	FlatList, 
-
+	FlatList,
+	Text,
 } from 'react-native';
 import { 
-	ListItem, 
+	ListItem,
+	EmptyListPlaceholder, 
 	styles, 
 } from '../components/List';
 
@@ -42,6 +43,9 @@ class ShoppingList extends Component {
 		updateListView: PropTypes.func,
 		updateDataList: PropTypes.func,
 		syncLists: PropTypes.func,
+		dataList: PropTypes.array,
+		listView: PropTypes.array,
+		filterString: PropTypes.string
 	}
 
 	componentWillMount(){
@@ -86,7 +90,15 @@ class ShoppingList extends Component {
 		this.save(arr);	
 	}
 	//update the listview by filtering the datalist with a given text
-	filterList = (text) => {
+
+
+
+	//UI handling
+	handleAddPress = 			(text) => {text ? this.addItem(text) : null}
+	handleCheckBoxPress = 		(item) => {item ? this.markItem(item) : null} 
+	handleSwipeRightComplete = 	(item) => {item ? this.removeItem(item) : null}
+	handleSwipeLeftComplete = 	(item) => {item ? this.markItem(item) : null}
+	handleFilterStrChange = 	(text) => {
 		let filteredList = this.props.dataList.filter((item) =>
 			item.title.match(new RegExp('.*' + text +'.*', 'gi'))  ||
 			item.title2.match(new RegExp('.*' + text +'.*', 'gi'))  ||
@@ -96,19 +108,18 @@ class ShoppingList extends Component {
 		this.props.dispatch(changeFilterText(text));
 	}
 
-
-
-	//UI handling
-	handleAddPress = 			(text) => {text ? this.addItem(text) : null}
-	handleCheckBoxPress = 		(item) => {item ? this.markItem(item) : null}
-	handleFilterStrChange = 	(text) => {text ? this.filterList(text) : null} 
-	handleSwipeRightComplete = 	(item) => {item ? this.removeItem(item) : null}
-
 	render(){
 
-		return(
-			<DataListContainer>
-				<StatusBar translucent={false} barStyle="default"/>
+		//conditional rendering, depending to the size of the datalists
+		let renderedListView = (<View></View>);
+		if(this.props.listView.length === 0 && this.props.dataList.length === 0) {
+			renderedListView = (<EmptyListPlaceholder opt='empty-list'/>);
+		} 
+		if(this.props.listView.length === 0 && this.props.dataList.length > 0) {
+			renderedListView = (<EmptyListPlaceholder opt='empty-filter'/>);
+		}
+		else {
+			renderedListView = (
 				<FlatList
 					style = {{flex: 1}}
 					data={this.props.listView}
@@ -121,14 +132,20 @@ class ShoppingList extends Component {
 							isChecked={item.isCompleted}
 							onCheckBoxPress={() => {this.handleCheckBoxPress(item)}}
 							onSwipeRightComplete={() => {this.handleSwipeRightComplete(item)}}
-							onSwipeLeftComplete= {() => {this.handleCheckBoxPress(item)}}
+							onSwipeLeftComplete= {() => {this.handleSwipeLeftComplete(item)}}
 						/>
 					)}
 					keyExtractor = {
 						item => item.cretedAt
 					}
-					
 				/>
+			);
+		}
+
+		return(
+			<DataListContainer>
+				<StatusBar translucent={false} barStyle="default"/>
+				{renderedListView}
 				<Omnibox
 					onPress={() => this.handleAddPress(this.props.filterString)}
 					onChangeText= {this.handleFilterStrChange}
@@ -140,13 +157,10 @@ class ShoppingList extends Component {
 	}
 }
 
-
-
 const mapStateToProps = (state) => {
 	return{
 		dataList: state.shoppinglist.dataList,
 		listView: state.shoppinglist.listView,
-		filteredDataList: state.shoppinglist.filteredList,
 		filterString: state.shoppinglist.filterString,
 	};
 }
