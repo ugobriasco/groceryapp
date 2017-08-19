@@ -3,9 +3,10 @@ import {
 	View
 } from 'react-native';
 import Icon from  'react-native-vector-icons/MaterialIcons';
+import styles from './styles';
 
 
-const Checkbox = (isChecked, onPress) => {
+const Checkbox = ({isChecked, onPress}) => {
 
 	let iconName = isChecked === true ? 'check-box' : 'check-box-outline-blank';
 
