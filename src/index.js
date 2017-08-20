@@ -6,7 +6,7 @@ import store from './config/store';
 
 
 import Home from './screens/Home';
-import ShoppingList from './screens/_ShoppingList';
+import ShoppingList from './screens/ShoppingList';
 import AvailableGroceries from './screens/AvailableGroceries';
 
 Estylesheet.build({
@@ -23,7 +23,7 @@ Estylesheet.build({
 
 export default () => (
 	<Provider store = {store}>
-		<ShoppingList />
+		<AvailableGroceries />
 	</Provider>
 
 

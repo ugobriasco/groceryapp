@@ -14,14 +14,6 @@ export default EStyleSheet.create({
 	    marginTop: '$boxMargin',
 	    marginLeft: 10,
 	    marginRight: 10,
-	
-	},
-	checkbox_container:{
-	    paddingLeft: 10,   
-	},
-	checkbox:{
-		backgroundColor: "$primaryBoxColor",
-		overlayColor: "$primaryBoxColor",
 	},
 	contentBox: {
 	    flex: 1,

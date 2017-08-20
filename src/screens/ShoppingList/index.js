@@ -11,7 +11,11 @@ import {
 	styles, 
 } from '../../components/List';
 
-import { ListItem } from './components/List';
+import { 
+	ListItem,
+ } from './components/List';
+
+ import { Header } from '../../components/Header'; 
 
 import ItemModel from '../../components/List/ItemModel';
 import { DataListContainer } from '../../components/Container';
@@ -107,6 +111,8 @@ class ShoppingList extends Component {
 		this.props.dispatch(changeFilterText(text));
 	}
 
+	handleOptionsPress = () => null;
+
 	render(){
 
 		
@@ -148,6 +154,7 @@ class ShoppingList extends Component {
 		return(
 			<DataListContainer>
 				<StatusBar translucent={false} barStyle="default"/>
+				<Header onPress={this.handleOptionsPress} />
 				{renderedListView}
 				<Omnibox
 					onPress={() => this.handleAddPress(this.props.filterString)}
