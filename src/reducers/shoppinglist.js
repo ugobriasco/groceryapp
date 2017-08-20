@@ -7,15 +7,16 @@ import {
 } from '../actions/shoppinglist';
 
 //import mockupData from  '../data/data';
-import ItemModel from '../components/List/ItemModel'
+import ItemModel from '../components/List/ItemModel';
+//import mockupData from '../data/mockupData';
 
-const mockupData = [
+const initialData = [
   new ItemModel('Mele','Äpfel','Jabłka','http://knowledge.wharton.upenn.edu/wp-content/uploads/2014/03/apple-1024x440.jpg'),
 ];
 
 const initialState = {
-	dataList: mockupData,
-	listView: mockupData,
+	dataList: initialData,
+	listView: initialData,
 	filterString: '',
 	error: null,
 }

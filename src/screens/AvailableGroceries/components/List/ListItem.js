@@ -8,7 +8,6 @@ import {
 } from 'react-native';
 import Swipeable from 'react-native-swipeable';
 import PropTypes from 'prop-types';
-import Icon from  'react-native-vector-icons/MaterialIcons';
 import EStyleSheet from 'react-native-extended-stylesheet';
 
 
@@ -37,16 +36,31 @@ const ListItem = ({
 
 	
 	//handles swipe content
-	const rightContent=(	
-        <View style={styles.right_swipeable_wrapper}>
-        	<TextWithIcon
-        	text='Swipe to add'
-        	backgroundColor= {_styles.$green} 
-        	textColor= {_styles.$white}
-        	iconName='add-shopping-cart'
-        />
-        </View>      
-	);
+	let rightContent = (<View></View>);
+	if(isChecked){
+		rightContent=(
+	        <View style={styles.right_swipeable_wrapper}>
+	        	<TextWithIcon
+	        	text='Swipe to remove'
+	        	backgroundColor= {_styles.$gray} 
+	        	textColor= {_styles.$green}
+	        	iconName='remove-shopping-cart'
+	        />
+	        </View>      
+		);
+	} else {		
+		rightContent=(
+	        <View style={styles.right_swipeable_wrapper}>
+	        	<TextWithIcon
+	        	text='Swipe to add'
+	        	backgroundColor= {_styles.$green} 
+	        	textColor= {_styles.$white}
+	        	iconName='add-shopping-cart'
+	        />
+	        </View>      
+		);
+
+	}
 
 	//handles row selection
 	const primaryColor = '#fff';

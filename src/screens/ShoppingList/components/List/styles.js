@@ -10,41 +10,16 @@ export default EStyleSheet.create({
 	    width: 70,
 	    marginRight: 0,
 	    resizeMode: 'cover'
-	},
-	leftSwipeWrapper: {
+	},	
+	right_swipeable_wrapper:{
 	    flex: 1,
-	    flexDirection: 'row',
 	    marginTop: '$boxMargin',
-	    backgroundColor: '$brandingBackground',
 	    minHeight: '$boxMinHeight',
-		alignItems: 'center',
-		justifyContent: 'flex-end',
 	},
-	leftSwipeText:{
-		fontSize: 18,
-		fontWeight: 'bold',
-		paddingRight: 20,
-		color: '#fff',
-	},
-	leftSwipeIcon:{
-		paddingRight: 20,
-	},
-	rightSwipeIcon:{
-		paddingLeft: 20,
-	},
-	rightSwipeText:{
-		fontSize: 18,
-		fontWeight: 'bold',
-		paddingLeft: 20,
-		color: '#fff',
-	},
-	rightSwipeWrapper: {
+	left_swipeable_wrapper:{
 	    flex: 1,
-	    flexDirection: 'row',
 	    marginTop: '$boxMargin',
-	    backgroundColor: '$dangerBackground',
 	    minHeight: '$boxMinHeight',
-		alignItems: 'center',
 	},
 
 	container: {
@@ -61,5 +36,21 @@ export default EStyleSheet.create({
 		flex: 0.4,
 	    flexDirection: 'row',
 	    justifyContent: 'flex-end'
+	},
+	hor_item_container: {
+		flex: 1,
+		justifyContent: 'center',
+		alignItems: 'center',
+		minWidth: 80,
+		paddingRight: 10,
+		paddingLeft: 10,
+		borderRightWidth: StyleSheet.hairlineWidth,
+		borderColor: '$border',
+	},
+
+	hor_item_text: {
+		fontSize: 16,
+		
+
 	},
 });

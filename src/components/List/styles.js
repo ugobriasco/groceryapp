@@ -76,11 +76,10 @@ export default EStyleSheet.create({
 		color: '#fff',
 	},
 	separator: {
-		marginLeft: 20,
-		backgroundColor: '$border',
-		flex: 1,
+		backgroundColor: '$border',		
 		height: StyleSheet.hairlineWidth,
 	},
+
 	emptyListWrapper: {
 		flex: 1,
 		alignItems: 'center',

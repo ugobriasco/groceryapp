@@ -5,21 +5,22 @@ import {
 	StatusBar,
 	View,
 	FlatList,
+	Text,
 } from 'react-native';
-import { 
-	EmptyListPlaceholder,
-	styles, 
-} from '../../components/List';
 
-import { 
-	ListItem,
- } from './components/List';
+//shared components
+import { EmptyListPlaceholder, Separator } from '../../components/List';
+import { DataListContainer, AutocompleteContainer } from '../../components/Container';
+import { Header } from '../../components/Header';
 
- import { Header } from '../../components/Header'; 
 
-import ItemModel from '../../components/List/ItemModel';
-import { DataListContainer } from '../../components/Container';
-import { Omnibox } from '../../components/TextInput';
+//local components
+import { ListItem, HorizontalListItem } from './components/List';
+import { Omnibox } from './components/Omnibox';
+
+//backend
+import mockupData from '../../data/mockupData';
+import ItemModel from '../../models/ItemModel'; 
 import { 
 	getInitialDataList,
 	changeFilterText,
@@ -27,6 +28,7 @@ import {
 	updateDataList,
 	syncLists, 	
 } from '../../actions/shoppinglist';
+import { updateGroceriesView }from '../../actions/groceries';
 
 const move = (array, fromIndex, toIndex) => {
 	return array.splice(toIndex, 0, array.splice(fromIndex, 1)[0]);
@@ -52,7 +54,7 @@ class ShoppingList extends Component {
 	}
 
 	componentWillMount(){
-		this.props.dispatch(getInitialDataList());
+		this.props.dispatch(getInitialDataList());	
 	}
 
 	//dispatch the changes to the list, clear filter ans force update;
@@ -62,7 +64,6 @@ class ShoppingList extends Component {
 		this.props.dispatch(changeFilterText(''));
 		this.forceUpdate();
 	}
-
 	//switch item.isCompleted and move it to the top/bottom of the list
 	markItem = (item) => {
 		const i = this.props.dataList.indexOf(item);
@@ -85,6 +86,20 @@ class ShoppingList extends Component {
 		arr = arr.concat(data);
 		this.save(arr);
 	}
+	addItemFromGroceries = (item) => {
+		const data = this.props.dataList;
+		let arr = [
+			new ItemModel(
+			  	item.name.it.main,
+			  	item.name.de.main,
+			  	item.name.pl.main,
+			  	item.pic,
+			  	item._id,
+			  	)
+	  	];
+	  	arr = arr.concat(data);
+		this.save(arr);
+	}
 	//remove an item from the list
 	removeItem = (item) => {
 		const i = this.props.dataList.indexOf(item);
@@ -92,7 +107,6 @@ class ShoppingList extends Component {
 		remove(arr,i);
 		this.save(arr);	
 	}
-	//update the listview by filtering the datalist with a given text
 
 
 
@@ -107,25 +121,31 @@ class ShoppingList extends Component {
 			item.title2.match(new RegExp('.*' + text +'.*', 'gi'))  ||
 			item.title3.match(new RegExp('.*' + text +'.*', 'gi'))
 		);
+
+		let filteredGroceries = this.props.groceriesList.filter((item) =>
+			item.name.it.main.match(new RegExp('.*' + text +'.*', 'gi'))
+		);
+
 		this.props.dispatch(updateListView(filteredList));
+		this.props.dispatch(updateGroceriesView(filteredGroceries));
 		this.props.dispatch(changeFilterText(text));
 	}
-
+	handleAutocompletePress = (item) => {item ? this.addItemFromGroceries(item): null}
 	handleOptionsPress = () => null;
+
+	
 
 	render(){
 
-		
 
-		//conditional rendering, depending to the size of the datalists
+//LISTVIEW SECTION
 		let renderedListView = (<View></View>);
 		if(this.props.listView.length === 0 && this.props.dataList.length === 0) {
 			renderedListView = (<EmptyListPlaceholder opt='empty-list'/>);
 		} 
 		if(this.props.listView.length === 0 && this.props.dataList.length > 0) {
 			renderedListView = (<EmptyListPlaceholder opt='empty-filter'/>);
-		}
-		else {
+		} else {
 			renderedListView = (
 				<FlatList
 					style = {{flex: 1}}
@@ -149,13 +169,38 @@ class ShoppingList extends Component {
 			);
 		}
 
-		
 
+//AUTOCOMPLETE SECTION
+		let renderAutocomplete = (<View></View>);
+		if(this.props.groceriesView){ 
+			
+			renderAutocomplete = (
+				<AutocompleteContainer>
+					<FlatList
+						style = {{flex: 0.1, backgroundColor: 'transparent'}}
+						horizontal={true}
+					  	data={this.props.groceriesView}
+					  	renderItem={({item}) => (
+					  		<HorizontalListItem
+					  			 title={item.name.it.main}
+					  			 onPress = {() => {this.handleAutocompletePress(item)}}
+					  		/>
+					  	)}
+					  	keyExtractor = {item => item._id}
+					  			
+					/>	
+				</AutocompleteContainer>
+			);
+
+		}
+
+//RETURN
 		return(
 			<DataListContainer>
 				<StatusBar translucent={false} barStyle="default"/>
 				<Header onPress={this.handleOptionsPress} />
 				{renderedListView}
+				{renderAutocomplete}
 				<Omnibox
 					onPress={() => this.handleAddPress(this.props.filterString)}
 					onChangeText= {this.handleFilterStrChange}
@@ -172,6 +217,8 @@ const mapStateToProps = (state) => {
 		dataList: state.shoppinglist.dataList,
 		listView: state.shoppinglist.listView,
 		filterString: state.shoppinglist.filterString,
+		groceriesList: state.groceries.groceries,
+		groceriesView: state.groceries.groceriesView,
 	};
 }
 

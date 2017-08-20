@@ -23,10 +23,8 @@ Estylesheet.build({
 
 export default () => (
 	<Provider store = {store}>
-		<AvailableGroceries />
+		<ShoppingList />
 	</Provider>
-
-
 );
 
 

@@ -14,9 +14,8 @@ import mockupData from '../../data/mockupData';
 
 class AvailableGroceries extends Component {
 
-
-	handleSwipeLeftComplete = (item) => null;
 	handleSwipeRightComplete = (item) => null;
+	handleItemCheck = item => true;
 	handleOptionsPress = () => null;
 
 	render(){
@@ -37,8 +36,9 @@ class AvailableGroceries extends Component {
 								subtitle1={item.name.de.main}
 								subtitle2={item.name.pl.main}
 								imageSource={item.pic}
-								onSwipeLeftComplete= {() => {this.handleSwipeLeftComplete(item)}}
 								onSwipeRightComplete = {() => {this.handleSwipeRightComplete(item)}}
+								isChecked = {this.handleItemCheck(item)}
+
 							/>
 					)}
 					keyExtractor = {item => item._id}

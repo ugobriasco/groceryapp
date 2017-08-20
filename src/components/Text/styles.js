@@ -36,4 +36,20 @@ export default EStylesheeSheet.create({
 	text_with_icon_icon:{
 		marginRight: 20
 	},
+
+	//Object: TextWithIconInverted
+	text_with_icon_inverted_box:{
+		flex: 1,
+		flexDirection: 'row',
+		alignItems: 'center',
+		justifyContent: 'flex-end',
+	    paddingRight: 20,
+	},
+	text_with_icon_inverted_text:{
+		fontSize: 18,
+		fontWeight: 'bold',
+	},
+	text_with_icon_inverted_icon:{
+		marginLeft: 20
+	},
 });

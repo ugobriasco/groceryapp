@@ -7,6 +7,8 @@
 		"test": "jest"
 	},
 	"dependencies": {
+		"add": "^2.0.6",
+		"color": "^2.0.0",
 		"prop-types": "^15.5.10",
 		"react": "16.0.0-alpha.12",
 		"react-native": "0.47.1",
@@ -17,7 +19,8 @@
 		"react-redux": "^5.0.6",
 		"redux": "^3.7.2",
 		"redux-logger": "^3.0.6",
-		"redux-saga": "^0.15.6"
+		"redux-saga": "^0.15.6",
+		"yarn": "^0.27.5"
 	},
 	"devDependencies": {
 		"babel-jest": "20.0.3",

@@ -8,11 +8,11 @@ import {
 } from 'react-native';
 import Swipeable from 'react-native-swipeable';
 import PropTypes from 'prop-types';
-import Icon from  'react-native-vector-icons/MaterialIcons';
 import styles from './styles';
+import EStyleSheet from 'react-native-extended-stylesheet';
 
 import {Checkbox} from '../../../../components/Switches';
-import {ItemContent} from '../../../../components/Text';
+import {ItemContent, TextWithIcon, TextWithIconInverted} from '../../../../components/Text';
 
 
 const ListItem = ({
@@ -36,21 +36,31 @@ const ListItem = ({
 	else img = (<View></View>);
 
 
-	let switchMark = isChecked === true 
-		? <Text style= {styles.leftSwipeText}>Swipe to unmark</Text> 
-		: <Text style= {styles.leftSwipeText}>Swipe to mark</Text>
+	let switchMark = isChecked ? 'Swipe to unmark...' : 'Swipe to mark...'
 
 	//handle swipe content
-	const rightContent = (
-		<View style={styles.rightSwipeWrapper}>
-		        <Icon style={styles.rightSwipeIcon} name="delete" size={40} color="#fff"/>
-		        <Text style={styles.rightSwipeText}>Swipe to delete</Text>
+	const rightContent = (	
+        <View style={styles.right_swipeable_wrapper}>
+        	<TextWithIcon
+	        	text='Swipe to delete'
+	        	backgroundColor= {_styles.$danger} 
+	        	textColor= {_styles.$white}
+	        	iconName='delete'
+	        />    	
         </View>
+        
 	) 
 	const leftContent=(
-		<View style={styles.leftSwipeWrapper}>
-          {switchMark}
+		
+        
+        <View style={styles.left_swipeable_wrapper}>
+        	<TextWithIconInverted
+        		text = {switchMark}
+        		backgroundColor = {_styles.$primary}
+        		textColor={_styles.$white}
+        	/>
         </View>
+        
 	)
 
 	return(
@@ -92,5 +102,14 @@ ListItem.PropTypes = {
 	subtitle2: PropTypes.string,
 	imageSource: PropTypes.string,
 };
+
+const _styles = EStyleSheet.create({
+  	$primary: '$brandingBackground',
+  	$danger: '$dangerBackground',
+  	$gray: '$primaryBoxColor',
+  	$white: '#ffff',
+
+});
+
 
 export default ListItem;
