@@ -86,6 +86,7 @@ class ShoppingList extends Component {
 		arr = arr.concat(data);
 		this.save(arr);
 	}
+	//ad item mapping from default groceribot api items
 	addItemFromGroceries = (item) => {
 		const data = this.props.dataList;
 		let arr = [
@@ -195,20 +196,22 @@ class ShoppingList extends Component {
 		}
 
 //RETURN
+		
 		return(
 			<DataListContainer>
 				<StatusBar translucent={false} barStyle="default"/>
 				<Header onPress={this.handleOptionsPress} />
 				{renderedListView}
-				{renderAutocomplete}
 				<Omnibox
 					onPress={() => this.handleAddPress(this.props.filterString)}
 					onChangeText= {this.handleFilterStrChange}
-					value = {this.props.filterString}
+		 			value = {this.props.filterString}
+					onAutocompletePress = {(item) => {this.handleAutocompletePress(item)}}
+					data={this.props.groceriesView}
 				/>
-			</DataListContainer>
-			
+			</DataListContainer>	
 		);
+
 	}
 }
 

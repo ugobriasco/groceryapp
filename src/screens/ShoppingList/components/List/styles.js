@@ -37,20 +37,5 @@ export default EStyleSheet.create({
 	    flexDirection: 'row',
 	    justifyContent: 'flex-end'
 	},
-	hor_item_container: {
-		flex: 1,
-		justifyContent: 'center',
-		alignItems: 'center',
-		minWidth: 80,
-		paddingRight: 10,
-		paddingLeft: 10,
-		borderRightWidth: StyleSheet.hairlineWidth,
-		borderColor: '$border',
-	},
-
-	hor_item_text: {
-		fontSize: 16,
-		
-
-	},
+	
 });

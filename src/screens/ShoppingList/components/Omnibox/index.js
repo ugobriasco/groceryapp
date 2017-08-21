@@ -1,4 +1,5 @@
-import Omnibox from './Omnibox';
+import Autocomplete from './Autocomplete';
+import Omnibox from'./Omnibox';
 import styles from './styles';
 
 export {Omnibox, styles}; 

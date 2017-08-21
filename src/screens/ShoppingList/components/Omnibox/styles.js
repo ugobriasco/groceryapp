@@ -3,7 +3,13 @@ import { StyleSheet } from 'react-native';
 
 export default EStyleSheet.create({
 	
-	container: {
+	container:{
+		marginBottom: 0,
+		height: 100,
+		
+
+	},
+	input_group: {
 	    flexDirection: 'row',
 	    height: 50,
 	    padding: 4,
@@ -23,7 +29,23 @@ export default EStyleSheet.create({
   	inputform:{
   		fontSize: 16,
 	   
-  	}
+  	},
+  	hor_item_container: {
+		flex: 1,
+		justifyContent: 'center',
+		alignItems: 'center',
+		minWidth: 80,
+		paddingRight: 10,
+		paddingLeft: 10,
+		borderRightWidth: StyleSheet.hairlineWidth,
+		borderColor: '$border',
+	},
+
+	hor_item_text: {
+		fontSize: 16,
+		
+
+	},
 
 
 	
