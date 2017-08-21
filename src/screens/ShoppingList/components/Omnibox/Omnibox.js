@@ -2,6 +2,7 @@ import React from 'react';
 import {
 	View,
 	TextInput,
+	Text,
 } from 'react-native';
 import PropTypes from 'prop-types';
 import {SquareButton} from '../../../../components/Buttons';
@@ -15,11 +16,12 @@ const Omnibox = (props) => {
 	const { onPress } = props;
 
 	return(
+		
+
 		<View style={styles.container}>
-			<Autocomplete 
-			{...props} 
-			/>	
+			<Autocomplete {...props} />
 			<View style={styles.input_group}>
+		
 				<View style={styles.inputform_wrapper}>
 					<TextInput
 						style={styles.inputform}
@@ -38,7 +40,7 @@ const Omnibox = (props) => {
 						onPress = {onPress}
 					/>	
 				</View>
-			</View>
+			</View>	
 		</View>
 
 	);
@@ -57,3 +59,8 @@ const _styles = EStyleSheet.create({
   	$white: '#ffff',
 
 });
+
+
+// //<Autocomplete 
+// 			{...props} 
+// 			/>

@@ -1,5 +1,6 @@
 import EStyleSheet from 'react-native-extended-stylesheet';
 import { StyleSheet } from 'react-native';
+import color from 'color';
 
 export default EStyleSheet.create({
 	
@@ -29,6 +30,9 @@ export default EStyleSheet.create({
   	inputform:{
   		fontSize: 16,
 	   
+  	},
+  	hor_list:{
+  		backgroundColor:  'rgba(0,0,0,0)',
   	},
   	hor_item_container: {
 		flex: 1,

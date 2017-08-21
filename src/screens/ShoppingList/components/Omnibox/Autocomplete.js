@@ -13,16 +13,19 @@ const Autocomplete = (props) => {
 
 	return(
 		<FlatList
-			style = {{flex: 0.1, backgroundColor: 'transparent'}}
+			style = {styles.hor_list}
 			horizontal={true}
+			
+			keyboardShouldPersistTaps='always'
 		  	data={data}
 		  	renderItem={({item}) => (
 		  		<HorizontalListItem
-		  			 title={item.name.it.main}
+		  			 title={`${item.name.it.main} ${item.name.it.spec}`}
 		  			 onPress = {() => {onAutocompletePress(item)}}
 		  		/>
 		  	)}
 		  	keyExtractor = {item => item._id}
+		  	{...props}
 		  	 			
 		/>	
 	);
