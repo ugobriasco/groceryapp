@@ -13,15 +13,25 @@ import Autocomplete from './Autocomplete';
 
 const Omnibox = (props) => {
 
-	const { onPress } = props;
+	const { onPress, enableAutocomplete } = props;
+
+	
+	const autocomplete = enableAutocomplete
+	? (
+		<View style={styles.autocomplete_container}>
+			<Autocomplete {...props} />
+		</View>
+	)
+	: (null);
+
 
 	return(
-		
-
 		<View style={styles.container}>
-			<Autocomplete {...props} />
+
+			{autocomplete}
+			
+			
 			<View style={styles.input_group}>
-		
 				<View style={styles.inputform_wrapper}>
 					<TextInput
 						style={styles.inputform}
@@ -42,7 +52,6 @@ const Omnibox = (props) => {
 				</View>
 			</View>	
 		</View>
-
 	);
 };
 

@@ -12,10 +12,10 @@ const Autocomplete = (props) => {
 	const {onAutocompletePress, data } = props;
 
 	return(
+		
 		<FlatList
 			style = {styles.hor_list}
 			horizontal={true}
-			
 			keyboardShouldPersistTaps='always'
 		  	data={data}
 		  	renderItem={({item}) => (

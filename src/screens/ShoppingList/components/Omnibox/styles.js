@@ -6,13 +6,12 @@ export default EStyleSheet.create({
 	
 	container:{
 		marginBottom: 0,
-		height: 100,
+		
 		
 
 	},
 	input_group: {
 	    flexDirection: 'row',
-	    height: 50,
 	    padding: 4,
 	    marginBottom: 0,
 	    borderWidth: 1, 
@@ -20,18 +19,21 @@ export default EStyleSheet.create({
 	    backgroundColor: '#fff' 
   	},
 	button_wrapper: {
+
 	    flex: 1,
 	    width: 10,
 	    marginRight: 0,
 	},
 	inputform_wrapper:{
 	    flex: 5,
+	    height: 50,
   	},
   	inputform:{
   		fontSize: 16,
 	   
   	},
-  	hor_list:{
+  	autocomplete_container:{
+  		height: 50,
   		backgroundColor:  'rgba(0,0,0,0)',
   	},
   	hor_item_container: {

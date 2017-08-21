@@ -60,6 +60,7 @@ class ShoppingList extends Component {
 	//dispatch the changes to the list, clear filter ans force update;
 	save = (list) => {
 		this.props.dispatch(updateListView(list));
+
 		this.props.dispatch(syncLists(list));
 		this.props.dispatch(changeFilterText(''));
 		this.forceUpdate();
@@ -99,6 +100,7 @@ class ShoppingList extends Component {
 			  	)
 	  	];
 	  	arr = arr.concat(data);
+	  	this.props.dispatch(updateGroceriesView(this.props.groceriesList));
 		this.save(arr);
 	}
 	//remove an item from the list
@@ -208,6 +210,7 @@ class ShoppingList extends Component {
 		 			value = {this.props.filterString}
 					onAutocompletePress = {(item) => {this.handleAutocompletePress(item)}}
 					data={this.props.groceriesView}
+					enableAutocomplete = {false}
 				/>
 			</DataListContainer>	
 		);
