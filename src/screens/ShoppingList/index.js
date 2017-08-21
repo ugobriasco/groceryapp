@@ -6,6 +6,8 @@ import {
 	View,
 	FlatList,
 	Text,
+	Keyboard,
+	Platform,
 } from 'react-native';
 
 //shared components
@@ -40,6 +42,7 @@ const remove = (array, index) => {
 
 class ShoppingList extends Component {
 
+
 	//to update
 	static propTypes = {
 		dispatch: PropTypes.func,
@@ -51,11 +54,7 @@ class ShoppingList extends Component {
 		dataList: PropTypes.array,
 		listView: PropTypes.array,
 		filterString: PropTypes.string
-	}
-
-	componentWillMount(){
-		this.props.dispatch(getInitialDataList());	
-	}
+	} //to update
 
 	//dispatch the changes to the list, clear filter ans force update;
 	save = (list) => {
@@ -111,9 +110,7 @@ class ShoppingList extends Component {
 		this.save(arr);	
 	}
 
-
-
-	//UI handling
+	//UI Objects handling
 	handleAddPress = 			(text) => {text ? this.addItem(text) : null}
 	handleCheckBoxPress = 		(item) => {item ? this.markItem(item) : null} 
 	handleSwipeRightComplete = 	(item) => {item ? this.removeItem(item) : null}
@@ -124,11 +121,9 @@ class ShoppingList extends Component {
 			item.title2.match(new RegExp('.*' + text +'.*', 'gi'))  ||
 			item.title3.match(new RegExp('.*' + text +'.*', 'gi'))
 		);
-
 		let filteredGroceries = this.props.groceriesList.filter((item) =>
 			item.name.it.main.match(new RegExp('.*' + text +'.*', 'gi'))
 		);
-
 		this.props.dispatch(updateListView(filteredList));
 		this.props.dispatch(updateGroceriesView(filteredGroceries));
 		this.props.dispatch(changeFilterText(text));
@@ -136,10 +131,7 @@ class ShoppingList extends Component {
 	handleAutocompletePress = (item) => {item ? this.addItemFromGroceries(item): null}
 	handleOptionsPress = () => null;
 
-	
-
 	render(){
-
 
 //LISTVIEW SECTION
 		let renderedListView = (<View></View>);
@@ -172,31 +164,6 @@ class ShoppingList extends Component {
 			);
 		}
 
-
-//AUTOCOMPLETE SECTION
-		let renderAutocomplete = (<View></View>);
-		if(this.props.groceriesView){ 
-			
-			renderAutocomplete = (
-				<AutocompleteContainer>
-					<FlatList
-						style = {{flex: 0.1, backgroundColor: 'transparent'}}
-						horizontal={true}
-					  	data={this.props.groceriesView}
-					  	renderItem={({item}) => (
-					  		<HorizontalListItem
-					  			 title={item.name.it.main}
-					  			 onPress = {() => {this.handleAutocompletePress(item)}}
-					  		/>
-					  	)}
-					  	keyExtractor = {item => item._id}
-					  			
-					/>	
-				</AutocompleteContainer>
-			);
-
-		}
-
 //RETURN
 		
 		return(
@@ -210,7 +177,8 @@ class ShoppingList extends Component {
 		 			value = {this.props.filterString}
 					onAutocompletePress = {(item) => {this.handleAutocompletePress(item)}}
 					data={this.props.groceriesView}
-					enableAutocomplete = {false}
+					enableAutocomplete={true}
+					
 				/>
 			</DataListContainer>	
 		);
@@ -225,6 +193,7 @@ const mapStateToProps = (state) => {
 		filterString: state.shoppinglist.filterString,
 		groceriesList: state.groceries.groceries,
 		groceriesView: state.groceries.groceriesView,
+		keyboardShown: state.system.keyboardShown,
 	};
 }
 

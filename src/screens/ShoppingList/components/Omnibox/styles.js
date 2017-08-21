@@ -3,12 +3,11 @@ import { StyleSheet } from 'react-native';
 import color from 'color';
 
 export default EStyleSheet.create({
+
+		
 	
 	container:{
 		marginBottom: 0,
-		
-		
-
 	},
 	input_group: {
 	    flexDirection: 'row',
@@ -36,8 +35,13 @@ export default EStyleSheet.create({
   		height: 50,
   		backgroundColor:  'rgba(0,0,0,0)',
   	},
+  	hor_list_container:{
+  		
+  	
+  	},
+  	
   	hor_item_container: {
-		flex: 1,
+  		height: 50,
 		justifyContent: 'center',
 		alignItems: 'center',
 		minWidth: 80,
@@ -49,9 +53,8 @@ export default EStyleSheet.create({
 
 	hor_item_text: {
 		fontSize: 16,
-		
-
 	},
+	
 
 
 	

@@ -1,64 +1,121 @@
-import React from 'react';
+import React, { Component } from 'react';
 import {
 	View,
 	TextInput,
 	Text,
+	Animated,
+	Easing,
+	Keyboard,
+	Platform,
+	FlatList,
+	TouchableOpacity,
 } from 'react-native';
 import PropTypes from 'prop-types';
-import {SquareButton} from '../../../../components/Buttons';
 import EStyleSheet from 'react-native-extended-stylesheet';
 
 import styles from './styles';
-import Autocomplete from './Autocomplete';
+import {SquareButton} from '../../../../components/Buttons';
+import HorizontalListItem from './HorizontalListItem';
 
-const Omnibox = (props) => {
+const ANIMATION_DURATION = 400;
 
-	const { onPress, enableAutocomplete } = props;
+class Omnibox extends Component {
+
+	static propTypes = {
+		onPress: PropTypes.func,
+	};
+
+	constructor(props) {
+		super(props);
+		
+		this.state = {
+			autocompleteMarginBottom: new Animated.Value(-50),
+		};
+
+		
+		console.log(this.props);
+	}
+
+	componentDidMount(){
+		
+		const name = Platform.OS === 'ios' ? 'Will' : 'Did';
+	    this.keyboardDidShowListener = Keyboard.addListener(
+	      `keyboard${name}Show`,
+	      this._keyboardWillShow,
+	    );
+	    this.keyboardDidHideListener = Keyboard.addListener(
+	      `keyboard${name}Hide`,
+	      this._keyboardWillHide,
+	    );
+	}
+
+	componentWillUnmount(){
+	    this.keyboardDidShowListener.remove();
+	    this.keyboardDidHideListener.remove();
+	}
 
 	
-	const autocomplete = enableAutocomplete
-	? (
-		<View style={styles.autocomplete_container}>
-			<Autocomplete {...props} />
-		</View>
-	)
-	: (null);
+	_keyboardWillShow = () => {
+		Animated.timing(this.state.autocompleteMarginBottom, {
+			toValue: 0,
+			duration: ANIMATION_DURATION,
+		}).start();
+	}
 
+	_keyboardWillHide = () => {
+		Animated.timing(this.state.autocompleteMarginBottom, {
+			toValue: -50,
+			duration: ANIMATION_DURATION,
+		}).start();
+	}
+	
 
-	return(
-		<View style={styles.container}>
+	render(){
 
-			{autocomplete}
-			
-			
-			<View style={styles.input_group}>
-				<View style={styles.inputform_wrapper}>
-					<TextInput
-						style={styles.inputform}
-						placeholder='Add an item or Search'
-						blurOnSubmit={false}
-						{...props}
+		return(
+			<View style={styles.container}>
+				<Animated.View style={{marginBottom: this.state.autocompleteMarginBottom}}>	
+					<FlatList
+						horizontal={true}
+						keyboardShouldPersistTaps='always'
+					  	data={this.props.data}
+					  	renderItem={({item}) => (
+					  		<HorizontalListItem
+					  			 title={`${item.name.it.main} ${item.name.it.spec}`}
+					  			 onPress = {() => {this.props.onAutocompletePress(item)}}
+					  		/>
+					  	)}
+					  	keyExtractor = {item => item._id}
+					  			
 					/>
-				</View>
-				<View style={styles.button_wrapper}>
-					<SquareButton
-						iconName = 'add'
-						size = '35'
-						borderColor = 'transparent'
-						color = {_styles.$primary}
-						textColor = {_styles.$white}
-						onPress = {onPress}
-					/>	
-				</View>
-			</View>	
-		</View>
-	);
-};
+				</Animated.View>
+				<View style={styles.input_group}>
+					<View style={styles.inputform_wrapper}>
+						<TextInput
+							style={styles.inputform}
+							placeholder='Add an item or Search'
+							blurOnSubmit={false}
+							{...this.props}
+						/>
+					</View>
+					<View style={styles.button_wrapper}>
+						<SquareButton
+							iconName = 'add'
+							size = '35'
+							borderColor = 'transparent'
+							color = {_styles.$primary}
+							textColor = {_styles.$white}
+							onPress = {this.props.onPress}
+						/>	
+					</View>
+				</View>	
+			</View>
+		);
+	}
 
-Omnibox.PropTypes = {
-	onPress: PropTypes.func,
-};
 
+	
+}
 export default Omnibox;
 
 const _styles = EStyleSheet.create({
@@ -70,6 +127,3 @@ const _styles = EStyleSheet.create({
 });
 
 
-// //<Autocomplete 
-// 			{...props} 
-// 			/>
