@@ -1,6 +1,8 @@
 import {
 	UPDATE_GROCERIESVIEW,
 	GET_INITIAL_GROCERIES,
+	REMOTE_GROCERY_REQ_RESULT,
+	REMOTE_GROCERY_REQ_ERROR,
 } from '../actions/groceries';
 
 //import mockupData from  '../data/data';
@@ -19,7 +21,7 @@ const setGroceries = () => {
 	let groceriesSource = {
 		isFetching: true,
 		date: '',
-		list: mockupData,
+		list: [],
 	}
 
 	return groceriesSource;
@@ -36,6 +38,20 @@ const reducer = (state = initialState, action) => {
 			return {
 				...state,
 				groceriesView: action.updatedGroceriesView,
+			}
+		case REMOTE_GROCERY_REQ_RESULT:
+			return {
+				...state,
+				groceriesData: {
+					isFetching: false,
+					list: action.result.data
+				},
+				groceriesView: action.result.data
+
+			}
+		case REMOTE_GROCERY_REQ_ERROR:
+			return {
+				...state,
 			}
 		default:
 			return state;

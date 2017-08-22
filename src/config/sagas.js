@@ -6,7 +6,7 @@ import {
 	REMOTE_GROCERY_REQ_RESULT,
 } from '../actions/groceries';
 
-const url = 'http://gb.mathyourtie.com/api/';
+const url = 'http://gb.matchyourtie.com:3000/api/';
 const getLatestGroceries = (groceries) => fetch(url + `item/`);
 
 function* fetchLatestGroceries(action){
