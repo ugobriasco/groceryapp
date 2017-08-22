@@ -30,7 +30,7 @@ import {
 	updateDataList,
 	syncLists, 	
 } from '../../actions/shoppinglist';
-import { updateGroceriesView }from '../../actions/groceries';
+import { updateGroceriesView, getInitialGroceries }from '../../actions/groceries';
 
 const move = (array, fromIndex, toIndex) => {
 	return array.splice(toIndex, 0, array.splice(fromIndex, 1)[0]);
@@ -55,6 +55,10 @@ class ShoppingList extends Component {
 		listView: PropTypes.array,
 		filterString: PropTypes.string
 	} //to update
+
+	componentWillMount(){
+		this.props.dispatch(getInitialGroceries());
+	}
 
 	//dispatch the changes to the list, clear filter ans force update;
 	save = (list) => {
@@ -191,7 +195,7 @@ const mapStateToProps = (state) => {
 		dataList: state.shoppinglist.dataList,
 		listView: state.shoppinglist.listView,
 		filterString: state.shoppinglist.filterString,
-		groceriesList: state.groceries.groceries,
+		groceriesList: state.groceries.groceriesData.list,
 		groceriesView: state.groceries.groceriesView,
 		
 	};
