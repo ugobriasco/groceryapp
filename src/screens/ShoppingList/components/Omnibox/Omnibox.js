@@ -24,7 +24,7 @@ class Omnibox extends Component {
 	static propTypes = {
 		onPress: PropTypes.func,
 		onAutocompletePress: PropTypes.func,
-		data: ProTypes.any,
+		data: PropTypes.any,
 	};
 
 	constructor(props) {
