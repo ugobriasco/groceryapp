@@ -23,6 +23,8 @@ class Omnibox extends Component {
 
 	static propTypes = {
 		onPress: PropTypes.func,
+		onAutocompletePress: PropTypes.func,
+		data: ProTypes.any,
 	};
 
 	constructor(props) {
@@ -31,9 +33,6 @@ class Omnibox extends Component {
 		this.state = {
 			autocompleteMarginBottom: new Animated.Value(-50),
 		};
-
-		
-		console.log(this.props);
 	}
 
 	componentDidMount(){
