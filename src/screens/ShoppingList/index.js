@@ -17,7 +17,7 @@ import { Header } from '../../components/Header';
 
 
 //local components
-import { ListItem, HorizontalListItem } from './components/List';
+import { ListItem } from './components/List';
 import { Omnibox } from './components/Omnibox';
 
 //backend
@@ -133,7 +133,6 @@ class ShoppingList extends Component {
 
 	render(){
 
-//LISTVIEW SECTION
 		let renderedListView = (<View></View>);
 		if(this.props.listView.length === 0 && this.props.dataList.length === 0) {
 			renderedListView = (<EmptyListPlaceholder opt='empty-list'/>);
@@ -170,6 +169,7 @@ class ShoppingList extends Component {
 			<DataListContainer>
 				<StatusBar translucent={false} barStyle="default"/>
 				<Header onPress={this.handleOptionsPress} />
+				
 				{renderedListView}
 				<Omnibox
 					onPress={() => this.handleAddPress(this.props.filterString)}
@@ -193,7 +193,7 @@ const mapStateToProps = (state) => {
 		filterString: state.shoppinglist.filterString,
 		groceriesList: state.groceries.groceries,
 		groceriesView: state.groceries.groceriesView,
-		keyboardShown: state.system.keyboardShown,
+		
 	};
 }
 
