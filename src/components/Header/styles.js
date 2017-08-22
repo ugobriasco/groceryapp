@@ -17,7 +17,7 @@ export default EStylesheeSheet.create({
   	},
   	button: {
     	alignSelf: 'flex-end',
-    	paddingVertical: 5,
+    	paddingBottom: 5,
     	paddingHorizontal: 20,
   	},
   	icon: {
