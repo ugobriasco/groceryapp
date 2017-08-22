@@ -11,8 +11,8 @@ import {
 
 //shared components
 import { EmptyListPlaceholder, Separator } from '../../components/List';
-import { DataListContainer, Statusbar } from '../../components/Container';
-import { Header } from '../../components/Header';
+import { DataListContainer}  from '../../components/Container';
+import { Header, Statusbar } from '../../components/Header';
 
 
 //local components
