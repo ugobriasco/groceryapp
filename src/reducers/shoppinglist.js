@@ -7,7 +7,7 @@ import {
 } from '../actions/shoppinglist';
 
 //import mockupData from  '../data/data';
-import ItemModel from '../components/List/ItemModel';
+import ItemModel from '../models/ItemModel';
 //import mockupData from '../data/mockupData';
 
 const initialData = [

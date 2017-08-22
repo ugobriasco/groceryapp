@@ -2,7 +2,6 @@ import React, { Component} from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { 
-	StatusBar,
 	View,
 	FlatList,
 	Text,
@@ -12,7 +11,7 @@ import {
 
 //shared components
 import { EmptyListPlaceholder, Separator } from '../../components/List';
-import { DataListContainer, AutocompleteContainer } from '../../components/Container';
+import { DataListContainer, Statusbar } from '../../components/Container';
 import { Header } from '../../components/Header';
 
 
@@ -171,7 +170,7 @@ class ShoppingList extends Component {
 		
 		return(
 			<DataListContainer>
-				<StatusBar translucent={false} barStyle="default"/>
+				<Statusbar />
 				<Header onPress={this.handleOptionsPress} />
 				
 				{renderedListView}

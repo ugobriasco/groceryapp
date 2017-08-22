@@ -21,7 +21,7 @@ const setGroceries = () => {
 	let groceriesSource = {
 		isFetching: true,
 		date: '',
-		list: [],
+		list: mockupData,
 	}
 
 	return groceriesSource;
