@@ -11,6 +11,7 @@ import AvailableGroceries from './screens/AvailableGroceries';
 import Options from './screens/Options';
 
 import Navigator from './config/routes';
+import { AlertProvider } from './components/Alert';
 
 Estylesheet.build({
 	$brandingBackground: '#18bc9c',
@@ -26,7 +27,9 @@ Estylesheet.build({
 
 export default () => (
 	<Provider store = {store}>
-		<Navigator onNavigationStateChange={null} />
+		<AlertProvider>
+			<Navigator onNavigationStateChange={null} />
+		</AlertProvider>
 	</Provider>
 );
 

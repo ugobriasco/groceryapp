@@ -4,25 +4,31 @@ import {
 	View,
 	Text,
 	Platform,
-	Linking
+	Linking,
 } from 'react-native';
 import PropTypes from 'prop-types';
 
 import { Statusbar } from '../../components/Header';
 import { Separator, ListItem } from '../../components/List';
-import Ionicons from 'react-native-vector-icons/Ionicons';
+import Icon from  'react-native-vector-icons/MaterialIcons';
+import { connectAlert } from '../../components/Alert';
 
 
 const ICON_COLOR = '#868686';
 const ICON_SIZE = 23;
-const ICON_PREFIX = Platform.OS === 'ios' ? 'ios' : 'md';
 
 class Options extends Component {
 	static PropTypes = {
-
+		alertWithType: PropTypes.func,
 	}
 
-	handleSitePress = () => null;
+	
+	handleGroceriesPress = () => null;
+	handleLanguagesPress = () => null;
+	
+	handleSitePress = () => {
+		Linking.openURL('http://gb.matchyourtie.com').catch(() => this.props.alertWithType('error', 'Sorry!', 'Grocerybot.io cant be opened'));
+	}
 
 	render() {
 
@@ -30,10 +36,18 @@ class Options extends Component {
 			<ScrollView>
 				<Statusbar/>
 				<ListItem
-					text="Grocerybot.io"
-					onPress={this.handleSitePress}
+					text="Your Groceries"
+					onPress={this.handleGroceriesPress}
            			customIcon={
-           				<Ionicons name={`${ICON_PREFIX}-link`} size={ICON_SIZE} color={ICON_COLOR} />
+           				<Icon name={'add'} size={ICON_SIZE} color={ICON_COLOR}/>	
+          			}
+				/>
+				<Separator/>
+				<ListItem
+					text="Set languages"
+					onPress={this.handleLanguagesPress}
+           			customIcon={
+           				<Icon name={'add'} size={ICON_SIZE} color={ICON_COLOR}/>
           			}
 				/>
 				<Separator/>
@@ -41,7 +55,7 @@ class Options extends Component {
 					text="Grocerybot.io"
 					onPress={this.handleSitePress}
            			customIcon={
-           				<Ionicons name={`${ICON_PREFIX}-link`} size={ICON_SIZE} color={ICON_COLOR} />
+           				<Icon name={'add'} size={ICON_SIZE} color={ICON_COLOR}/>
           			}
 				/>
 				<Separator/>
@@ -50,4 +64,4 @@ class Options extends Component {
 	}
 }
 
-export default Options;
+export default connectAlert(Options);
