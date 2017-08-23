@@ -1,0 +1,1 @@
+export default availableLanguages = ['Italiano','Deutsch','Polski'];

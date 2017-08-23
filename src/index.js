@@ -9,6 +9,7 @@ import Home from './screens/Home';
 import ShoppingList from './screens/ShoppingList';
 import AvailableGroceries from './screens/AvailableGroceries';
 import Options from './screens/Options';
+import LanguagesList from './screens/LanguagesList';
 
 import Navigator from './config/routes';
 import { AlertProvider } from './components/Alert';
@@ -33,6 +34,14 @@ export default () => (
 	</Provider>
 );
 
+
+// export default () => (
+// 	<Provider store = {store}>
+// 		<AlertProvider>
+// 			<LanguagesList/>
+// 		</AlertProvider>
+// 	</Provider>
+// );
 
 
 

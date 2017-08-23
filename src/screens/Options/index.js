@@ -51,6 +51,7 @@ class Options extends Component {
           			}
 				/>
 				<Separator/>
+				
 				<ListItem
 					text="Grocerybot.io"
 					onPress={this.handleSitePress}
