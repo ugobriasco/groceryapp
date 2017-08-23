@@ -4,9 +4,6 @@ export const SYNC_LISTS = 'SYNC_LISTS';
 export const UPDATE_LISTVIEW = 'UPDATE_LISTVIEW';
 export const UPDATE_DATALIST = 'UPDATE_DATALIST';
 
-//try
-export const UPDATE_ALL ='UPDATE_ALL';
-
 //retrive initial status
 export const getInitialDataList = () => ({
 	type: GET_INITIAL_DATALIST,
@@ -35,13 +32,6 @@ export const updateListView = (updatedList) => ({
 export const updateDataList = (updatedList) => ({
 	type: UPDATE_DATALIST,
 	updatedList,
-
-});
-
-export const updateAll = (updatedList, filterString) => ({
-	type: UPDATE_ALL,
-	updatedList,
-	filterString,
 
 });
 
