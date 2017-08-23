@@ -2,13 +2,13 @@ import React, { Component } from 'react';
 import {
 	FlatList,
 	View,
-	StatusBar,
 } from 'react-native';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
 import { ListItem } from './components/List';
-import { DataListContainer} from '../../components/Container';
-import {Header} from '../../components/Header';
+import { DataListContainer } from '../../components/Container';
+import { Statusbar } from '../../components/Header';
 
 import mockupData from '../../data/mockupData';
 
@@ -21,15 +21,9 @@ class AvailableGroceries extends Component {
 	render(){
 		return(
 			<DataListContainer>
-				<StatusBar 
-					translucent={false}			//android
-					barStyle="default"			//ios
-				/>
-				<Header
-					onPress={this.handleOptionsPress}
-				/>
+				<Statusbar/>
 				<FlatList
-					data={mockupData}
+					data={this.props.groceriesView}
 					renderItem={({item}) => (
 							<ListItem
 								title={item.name.it.main}
@@ -47,5 +41,14 @@ class AvailableGroceries extends Component {
 		);
 	}
 }
+const mapStateToProps = (state) => {
+	return{
+		dataList: state.shoppinglist.dataList,
+		groceriesList: state.groceries.groceriesData.list,
+		groceriesView: state.groceries.groceriesView,
+		
+	};
+}
 
-export default AvailableGroceries;
+export default connect(mapStateToProps) (AvailableGroceries);
+

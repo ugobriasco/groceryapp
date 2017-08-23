@@ -79,7 +79,6 @@ class ShoppingList extends Component {
 		} // if not completed, item moved to the top
 		this.props.dispatch(syncLists(list));
 		this.forceUpdate();
-
 	}
 	//add an item to the top of the list
 	addItem = (text) => {

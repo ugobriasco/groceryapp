@@ -23,7 +23,10 @@ class Options extends Component {
 	}
 
 	
-	handleGroceriesPress = () => null;
+	handleGroceriesPress = () => {
+		this.props.navigation.navigate('Groceries');
+	};
+
 	handleLanguagesPress = () => null;
 	
 	handleSitePress = () => {
