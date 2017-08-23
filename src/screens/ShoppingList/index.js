@@ -27,7 +27,8 @@ import {
 	changeFilterText,
 	updateListView,
 	updateDataList,
-	syncLists, 	
+	syncLists,
+	updateAll, 	
 } from '../../actions/shoppinglist';
 import { updateGroceriesView, getInitialGroceries }from '../../actions/groceries';
 
@@ -61,10 +62,11 @@ class ShoppingList extends Component {
 
 	//dispatch the changes to the list, clear filter ans force update;
 	save = (list) => {
-		this.props.dispatch(updateListView(list));
+		// this.props.dispatch(updateListView(list));
 
-		this.props.dispatch(syncLists(list));
-		this.props.dispatch(changeFilterText(''));
+		// this.props.dispatch(syncLists(list));
+		// this.props.dispatch(changeFilterText(''));
+		this.props.dispatch(updateAll(list, ''));
 		this.forceUpdate();
 	}
 	//switch item.isCompleted and move it to the top/bottom of the list
@@ -161,6 +163,7 @@ class ShoppingList extends Component {
 							onCheckBoxPress={() => {this.handleCheckBoxPress(item)}}
 							onSwipeRightComplete={() => {this.handleSwipeRightComplete(item)}}
 							onSwipeLeftComplete= {() => {this.handleSwipeLeftComplete(item)}}
+							extraData={this.state}
 						/>
 					)}
 					keyExtractor = {

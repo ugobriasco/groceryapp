@@ -4,6 +4,7 @@ import {
 	SYNC_LISTS,
 	UPDATE_LISTVIEW,
 	UPDATE_DATALIST,
+	UPDATE_ALL,
 } from '../actions/shoppinglist';
 
 //import mockupData from  '../data/data';
@@ -43,6 +44,13 @@ const reducer = (state = initialState, action) => {
 			return {
 				...state,
 				dataList: action.updatedList,
+			}
+		case UPDATE_ALL:
+			return {
+				...state,
+				dataList: action.updatedList,
+				listView: action.updatedList,
+				filterString: action.filterString || '',
 			}
 		default:
 			return state;
