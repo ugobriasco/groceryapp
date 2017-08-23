@@ -20,7 +20,6 @@ import { ListItem } from './components/List';
 import { Omnibox } from './components/Omnibox';
 
 //backend
-import mockupData from '../../data/mockupData';
 import ItemModel from '../../models/ItemModel'; 
 import { 
 	getInitialDataList,
@@ -37,6 +36,10 @@ const move = (array, fromIndex, toIndex) => {
 
 const remove = (array, index) => {
 	return array.splice(index, 1);
+};
+
+const switchmark = (item) =>  {
+	if(item.isCompleted != undefined)  return item.isCompleted = !item.isCompleted
 };
 
 class ShoppingList extends Component {
@@ -59,40 +62,36 @@ class ShoppingList extends Component {
 		this.props.dispatch(getInitialGroceries());
 	}
 
-	//dispatch the changes to the list, clear filter ans force update;
-	save = (list) => {
-		this.props.dispatch(updateListView(list));
-
-		this.props.dispatch(syncLists(list));
-		this.props.dispatch(changeFilterText(''));
-		this.forceUpdate();
-	}
 	//switch item.isCompleted and move it to the top/bottom of the list
 	markItem = (item) => {
 		const i = this.props.dataList.indexOf(item);
 		let size = this.props.dataList.length;
-		let arr = this.props.dataList;
-		if(arr[i].isCompleted === false) {
-			arr[i].isCompleted = true;
-			move(arr,i,size);
+		let list = this.props.dataList;
+
+
+		if(list[i].isCompleted === false) {
+			list[i].isCompleted = true;
+			move(list,i,size);
 		} //if completed, item move to the bottom
 		else {
-			arr[i].isCompleted = false;
-			move(arr,i,0);
+			list[i].isCompleted = false;
+			move(list,i,0);
 		} // if not completed, item moved to the top
-		this.save(arr);
+		this.props.dispatch(syncLists(list));
+		this.forceUpdate();
+
 	}
 	//add an item to the top of the list
 	addItem = (text) => {
 		const data = this.props.dataList;
-		let arr = [new ItemModel(text)];
-		arr = arr.concat(data);
-		this.save(arr);
+		let list = [new ItemModel(text)];
+		list = list.concat(data);
+		this.save(list);
 	}
 	//ad item mapping from default groceribot api items
 	addItemFromGroceries = (item) => {
 		const data = this.props.dataList;
-		let arr = [
+		let list = [
 			new ItemModel(
 			  	item.name.it.main,
 			  	item.name.de.main,
@@ -101,17 +100,20 @@ class ShoppingList extends Component {
 			  	item._id,
 			  	)
 	  	];
-	  	arr = arr.concat(data);
+	  	list = list.concat(data);
 	  	this.props.dispatch(updateGroceriesView(this.props.groceriesList));
-		this.save(arr);
+		this.props.dispatch(syncLists(list));
 	}
 	//remove an item from the list
 	removeItem = (item) => {
 		const i = this.props.dataList.indexOf(item);
-		let arr = this.props.dataList;
-		remove(arr,i);
-		this.save(arr);	
+		let list = this.props.dataList;
+		remove(list,i);
+		this.props.dispatch(syncLists(list));
+		this.forceUpdate();	
 	}
+
+
 
 	//UI Objects handling
 	handleAddPress = 			(text) => {text ? this.addItem(text) : null}
@@ -131,7 +133,7 @@ class ShoppingList extends Component {
 		this.props.dispatch(updateGroceriesView(filteredGroceries));
 		this.props.dispatch(changeFilterText(text));
 	}
-	handleAutocompletePress = (item) => {item ? this.addItemFromGroceries(item): null}
+	handleAutocompletePress = (item) => {item ? this.addItemFromGroceries(item): null}	
 	handleOptionsPress = () => {
 		console.log('handle Option Press');
 		this.props.navigation.navigate('Options');
@@ -161,11 +163,11 @@ class ShoppingList extends Component {
 							onCheckBoxPress={() => {this.handleCheckBoxPress(item)}}
 							onSwipeRightComplete={() => {this.handleSwipeRightComplete(item)}}
 							onSwipeLeftComplete= {() => {this.handleSwipeLeftComplete(item)}}
+
 						/>
 					)}
-					keyExtractor = {
-						item => item.cretedAt
-					}
+					keyExtractor = {(item, index) => item._id}
+
 				/>
 			);
 		}

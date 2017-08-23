@@ -38,6 +38,7 @@ const reducer = (state = initialState, action) => {
 			return {
 				...state,
 				listView: action.updatedList,
+				filterString: '',
 			}
 		case UPDATE_DATALIST:
 			return {
