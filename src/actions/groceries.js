@@ -1,3 +1,4 @@
+export const UPDATE_GROCERIES = 'UPDATE_GROCERIES';
 export const UPDATE_GROCERIESVIEW = 'UPDATE_GROCERIESVIEW';
 export const GET_INITIAL_GROCERIES = 'GET_INITIAL_GROCERIES';
 
@@ -18,6 +19,12 @@ export const updateGroceriesView = (updatedGroceriesView) => ({
 	updatedGroceriesView,
 });
 
+
+//update the groceries (ment to flag items added to the list)
+export const updateGroceries = (updatedGroceries) => ({
+	type: UPDATE_GROCERIES,
+	updatedGroceries,
+});
 
 
 

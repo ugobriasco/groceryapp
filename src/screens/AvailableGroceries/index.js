@@ -10,13 +10,24 @@ import { ListItem } from './components/List';
 import { DataListContainer } from '../../components/Container';
 import { Statusbar } from '../../components/Header';
 
-import mockupData from '../../data/mockupData';
+import { updateGroceries } from '../../actions/groceries';
 
 class AvailableGroceries extends Component {
 
-	handleSwipeRightComplete = (item) => null;
-	handleItemCheck = item => true;
-	handleOptionsPress = () => null;
+	static PropTypes = {
+		dispatch: PropTypes.func,
+		updatedGroceries: PropTypes.func,
+	}
+
+	flagGrocery = (item) => {
+		const i = this.props.groceriesList.indexOf(item);
+		let list = this.props.groceriesList;
+		list[i].isFlagged = true;
+		this.props.dispatch(updateGroceries(list));
+		//this.forceUpdate();
+	}
+
+	handleSwipeRightComplete = (item) => {item ? this.flagGrocery(item) : null}
 
 	render(){
 		return(
@@ -31,11 +42,13 @@ class AvailableGroceries extends Component {
 								subtitle2={item.name.pl.main}
 								imageSource={item.pic}
 								onSwipeRightComplete = {() => {this.handleSwipeRightComplete(item)}}
-								isChecked = {this.handleItemCheck(item)}
+								isChecked = {item.isFlagged}
 
 							/>
 					)}
 					keyExtractor = {item => item._id}
+					extraData = {this.props.groceriesView}
+
 				/>	
 			</DataListContainer>
 		);
