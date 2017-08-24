@@ -85,7 +85,7 @@ class ShoppingList extends Component {
 		const data = this.props.dataList;
 		let list = [new ItemModel(text)];
 		list = list.concat(data);
-		this.save(list);
+		this.props.dispatch(syncLists(list));
 	}
 	//ad item mapping from default groceribot api items
 	addItemFromGroceries = (item) => {
@@ -172,13 +172,14 @@ class ShoppingList extends Component {
 		}
 
 //RETURN
-		
+
 		return(
 			<DataListContainer>
 				<Statusbar />
 				<Header onPress={this.handleOptionsPress} />
 				
 				{renderedListView}
+				
 				<Omnibox
 					onPress={() => this.handleAddPress(this.props.filterString)}
 					onChangeText= {this.handleFilterStrChange}
