@@ -33,6 +33,7 @@ const reducer = (state = initialState, action) => {
 				...state,
 				dataList: action.listToBeSynced,
 				listView: action.listToBeSynced,
+				filterString: '',
 			}
 		case UPDATE_LISTVIEW:
 			return {
