@@ -74,10 +74,13 @@ const ListItem = ({
 		>
 			<View style={styles.container}>
 				
-				<Checkbox
+				<View style={{flex: 0.2, alignItems: 'flex-end'}}>
+					<Checkbox
 					onPress={onCheckBoxPress}
 					isChecked={isChecked}
-				/>
+				/>	
+				</View>
+				
 				<View style={{flex: 1}}>
 					<ItemContent
 						title={title}
