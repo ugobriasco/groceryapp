@@ -16,7 +16,7 @@ import { Header, Statusbar } from '../../components/Header';
 
 
 //local components
-import { ListItem } from './components/List';
+import { ListItem, ShoppingListView } from './components/List';
 import { Omnibox } from './components/Omnibox';
 
 //backend
@@ -26,7 +26,8 @@ import {
 	changeFilterText,
 	updateListView,
 	updateDataList,
-	syncLists, 	
+	syncLists,
+	getListView, 	
 } from '../../actions/shoppinglist';
 import { updateGroceriesView, getInitialGroceries }from '../../actions/groceries';
 
@@ -63,7 +64,7 @@ class ShoppingList extends Component {
 	}
 
 	//switch item.isCompleted and move it to the top/bottom of the list
-	markItem = (item) => {
+	updateItem = (item) => {
 		const i = this.props.dataList.indexOf(item);
 		let size = this.props.dataList.length;
 		let list = this.props.dataList;
@@ -116,9 +117,9 @@ class ShoppingList extends Component {
 
 	//UI Objects handling
 	handleAddPress = 			(text) => {text ? this.addItem(text) : null}
-	handleCheckBoxPress = 		(item) => {item ? this.markItem(item) : null} 
+	handleCheckBoxPress = 		(item) => {item ? this.updateItem(item) : null} 
 	handleSwipeRightComplete = 	(item) => {item ? this.removeItem(item) : null}
-	handleSwipeLeftComplete = 	(item) => {item ? this.markItem(item) : null}
+	handleSwipeLeftComplete = 	(item) => {item ? this.updateItem(item) : null}
 	handleFilterStrChange = 	(text) => {
 		let filteredList = this.props.dataList.filter((item) =>
 			item.title.match(new RegExp('.*' + text +'.*', 'gi'))  ||
@@ -171,8 +172,22 @@ class ShoppingList extends Component {
 			);
 		}
 
+
+
+		//optional
+		// let renderedListView = (
+		// 	<ShoppingListView 
+		// 			onCheckBoxPress={(item) => {this.handleCheckBoxPress(item)}}
+		// 			onSwipeRightComplete={(item) => {this.handleSwipeRightComplete(item)}}
+		// 			onSwipeLeftComplete= {(item) => {this.handleSwipeLeftComplete(item)}}
+		// 			{...this.props}
+		// 	/>
+		// );
+
 //RETURN
 
+
+		
 		return(
 			<DataListContainer>
 				<Statusbar />
