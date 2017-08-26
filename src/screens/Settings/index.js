@@ -14,15 +14,10 @@ import { Checkbox } from '../../components/Switches';
 import Icon from  'react-native-vector-icons/MaterialIcons';
 import { connectAlert } from '../../components/Alert';
 
-import { LanguageOptions } from './components/LanguageOptions';
-
-
 const ICON_COLOR = '#868686';
 const ICON_SIZE = 30;
 
-
-
-class Options extends Component {
+class Settings extends Component {
 	static PropTypes = {
 		alertWithType: PropTypes.func,
 
@@ -111,4 +106,4 @@ class Options extends Component {
 	}
 }
 
-export default connectAlert(Options);
+export default connectAlert(Settings);

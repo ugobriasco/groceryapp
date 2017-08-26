@@ -2,7 +2,7 @@ import { StackNavigator, DrawerNavigator } from 'react-navigation';
 
 
 import ShoppingList from '../screens/ShoppingList';
-import Options from '../screens/Options';
+import Settings from '../screens/Settings';
 import AvailableGroceries from '../screens/AvailableGroceries';
 import LanguagesList from '../screens/LanguagesList';
 
@@ -14,8 +14,8 @@ const HomeStack = StackNavigator({
 			header: () => null,
 		},
 	},
-	Options: {
-		screen: Options,
+	Settings: {
+		screen: Settings,
 		navigationOptions: {
 			headerTitle: 'Settings',
 		},

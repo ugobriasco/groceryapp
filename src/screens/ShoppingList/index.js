@@ -135,8 +135,8 @@ class ShoppingList extends Component {
 	}
 	handleAutocompletePress = (item) => {item ? this.addItemFromGroceries(item): null}	
 	handleOptionsPress = () => {
-		console.log('handle Option Press');
-		this.props.navigation.navigate('Options');
+		
+		this.props.navigation.navigate('Settings');
 
 	}
 
