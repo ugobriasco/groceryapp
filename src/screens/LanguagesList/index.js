@@ -24,10 +24,10 @@ class LanguagesList extends Component {
 				<Statusbar/>
 				<FlatList
 					data={availableLanguages}
-					keyExtractor = {item => item}
+					keyExtractor = {item => item.id}
 					renderItem = {({item})=>(
 						<ListItem
-							text={item}
+							text={item.name}
 							onPress={this.handlePress}
 						/>
 					)}
