@@ -13,6 +13,13 @@ import { Separator, ListItem } from '../../components/List';
 import { Checkbox } from '../../components/Switches';
 import Icon from  'react-native-vector-icons/MaterialIcons';
 import { connectAlert } from '../../components/Alert';
+import { connect }from 'react-redux';
+
+import {
+	setLanguages,
+	setOptMutipleLanguages,
+
+} from '../../actions/settings'
 
 const ICON_COLOR = '#868686';
 const ICON_SIZE = 30;
@@ -26,33 +33,39 @@ class Settings extends Component {
 	constructor(props){
 		super(props)
 		this.state ={
-			multipleLanguages: false,
-			expandLanguages: new Animated.Value(-70)
+			expandLanguages: new Animated.Value(-70),
 		}
 	}
 
 
 	handlePrimaryLanguagePress = () => {
-		this.props.navigation.navigate('LanguagesList', {title: 'Primary Language', type: 'primary'});
-		
+		this.props.navigation.navigate('LanguagesList', {title: 'Primary Language', type: 'primary'});	
 	}
 	
 	handleAddtLanguagesPress = () => {
 		this.props.navigation.navigate('LanguagesList', {title: 'Additional Language', type: 'secondary'});	
 	}
-
 	toggleLanguagesPress = () => {
-		this.setState({multipleLanguages: !this.state.multipleLanguages});
-	};
-		
+
+		const currentState = this.props.multipleLanguages;
+
+		if(currentState){
+			//this.setState({multipleLanguages: false});
+			this.props.dispatch(setOptMutipleLanguages(false));
+		} else {
+			//this.setState({multipleLanguages: true});
+			this.props.dispatch(setOptMutipleLanguages(true));
+		}
+	};	
 	handleSitePress = () => {
-		Linking.openURL('httpt://gb.matchyourtie.com').catch(() => this.props.alertWithType('error', 'Sorry!', 'Grocerybot.io cant be opened'));
+		Linking.openURL('httpt://gb.matchyourtie.com')
+		.catch(() => this.props.alertWithType('error', 'Sorry!', 'Grocerybot.io cant be opened'));
 	}
 
 	render() {
 
 		let renderMuLanguages = (<View></View>); 
-		if(this.state.multipleLanguages){
+		if(this.props.multipleLanguages){
 
 			renderMuLanguages = (
 				<View>
@@ -86,7 +99,7 @@ class Settings extends Component {
 					text="Multiple Languages"
 					onPress={this.toggleLanguagesPress}
            			customIcon={
-           				<Icon name={this.state.multipleLanguages ? 'check-box' : 'check-box-outline-blank'} size={ICON_SIZE} color={ICON_COLOR}/>
+           				<Icon name={this.props.multipleLanguages ? 'check-box' : 'check-box-outline-blank'} size={ICON_SIZE} color={ICON_COLOR}/>
           			}
 				/>
 				<Separator/>
@@ -106,4 +119,10 @@ class Settings extends Component {
 	}
 }
 
-export default connectAlert(Settings);
+const mapStateToProps = (state) => {
+	return{
+		multipleLanguages: state.settings.multipleLanguages,
+	}
+}
+
+export default connect (mapStateToProps) (connectAlert(Settings)) ;

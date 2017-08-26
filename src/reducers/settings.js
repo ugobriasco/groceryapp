@@ -8,7 +8,7 @@ import availableLanguages from '../data/localization';
 const initialState = {
 	availableLanguages: availableLanguages,
 	selectedLanguages: ['it','de','pl'],
-	multipleLanguagesEnabled: true,
+	multipleLanguages: true,
 }
 
 const reducer = (state = initialState, action) => {
@@ -22,7 +22,7 @@ const reducer = (state = initialState, action) => {
 		case ENABLE_LANG_MULTIPLE:
 			return{
 				...state,
-				multipleLanguagesEnabled: action.isMultipleLanguagesEnabled,
+				multipleLanguages: action.isMultipleLanguagesEnabled,
 			}
 		default:
 			return state;
