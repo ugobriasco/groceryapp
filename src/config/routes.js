@@ -1,12 +1,13 @@
-import { StackNavigator } from 'react-navigation';
+import { StackNavigator, DrawerNavigator } from 'react-navigation';
 
 
 import ShoppingList from '../screens/ShoppingList';
 import Options from '../screens/Options';
 import AvailableGroceries from '../screens/AvailableGroceries';
+import LanguagesList from '../screens/LanguagesList';
 
 
-export default  StackNavigator({
+const HomeStack = StackNavigator({
 	ShoppingList: {
 		screen: ShoppingList,
 		navigationOptions: {
@@ -16,16 +17,46 @@ export default  StackNavigator({
 	Options: {
 		screen: Options,
 		navigationOptions: {
-			headerTitle: 'Options',
+			headerTitle: 'Settings',
 		},
 	},
-	Groceries: {
-		screen: AvailableGroceries,
-		navigationOptions: {
-			headerTitle: 'Available Groceries',
-		}
+	LanguagesList:{
+		screen: LanguagesList,
+		navigationOptions: ({ navigation }) => ({
+			headerTitle: navigation.state.params.title,
+		}),
 	},
 },{
 	headerMode: 'screen',
 	mode: 'card',
 });
+
+
+export default  StackNavigator({
+	Home:{
+		screen: HomeStack
+	},
+},{
+	mode: 'modal',
+	cardstyle:{
+		paddingTop: 0
+	},
+	headerMode: 'none'
+
+});
+
+
+
+
+
+// export default DrawerNavigator({
+// 	Home: {
+// 		screen: ShoppingList,
+// 	},
+// 	Settings:{
+// 		screen: Options,
+
+// 	},
+
+
+// });
