@@ -38,7 +38,7 @@ export default () => (
 // export default () => (
 // 	<Provider store = {store}>
 // 		<AlertProvider>
-// 			<LanguagesList/>
+// 			<Options/>
 // 		</AlertProvider>
 // 	</Provider>
 // );

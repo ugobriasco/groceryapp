@@ -2,64 +2,107 @@ import React, { Component } from 'react';
 import {
 	ScrollView,
 	View,
+	Animated,
 	Text,
-	Platform,
 	Linking,
 } from 'react-native';
 import PropTypes from 'prop-types';
 
 import { Statusbar } from '../../components/Header';
 import { Separator, ListItem } from '../../components/List';
+import { Checkbox } from '../../components/Switches';
 import Icon from  'react-native-vector-icons/MaterialIcons';
 import { connectAlert } from '../../components/Alert';
 
+import { LanguageOptions } from './components/LanguageOptions';
+
 
 const ICON_COLOR = '#868686';
-const ICON_SIZE = 23;
+const ICON_SIZE = 30;
+
+
 
 class Options extends Component {
 	static PropTypes = {
 		alertWithType: PropTypes.func,
+
 	}
 
-	
-	handleGroceriesPress = () => {
-		this.props.navigation.navigate('Groceries');
-	};
+	constructor(props){
+		super(props)
+		this.state ={
+			multipleLanguages: false,
+			expandLanguages: new Animated.Value(-70)
+		}
+	}
 
-	handleLanguagesPress = () => null;
+
+	handlePrimaryLanguagePress = () => {
+		this.props.navigation.navigate('LanguagesList', {title: 'Primary Language', type: 'primary'});
+		
+	}
 	
+	handleAddtLanguagesPress = () => {
+		this.props.navigation.navigate('LanguagesList', {title: 'Additional Language', type: 'secondary'});	
+	}
+
+	toggleLanguagesPress = () => {
+		this.setState({multipleLanguages: !this.state.multipleLanguages});
+	};
+		
 	handleSitePress = () => {
-		Linking.openURL('http://gb.matchyourtie.com').catch(() => this.props.alertWithType('error', 'Sorry!', 'Grocerybot.io cant be opened'));
+		Linking.openURL('httpt://gb.matchyourtie.com').catch(() => this.props.alertWithType('error', 'Sorry!', 'Grocerybot.io cant be opened'));
 	}
 
 	render() {
+
+		let renderMuLanguages = (<View></View>); 
+		if(this.state.multipleLanguages){
+
+			renderMuLanguages = (
+				<View>
+				<ListItem
+						text="Additinal Languages"
+						onPress={this.handleAddtLanguagesPress}
+	           			customIcon={
+	           				<View>
+	           					<Text>German</Text>
+	           					<Text>Polish</Text>
+	           				</View>		
+	          			}
+				/>
+				<Separator/>
+				</View>
+			);
+		}
 
 		return(
 			<ScrollView>
 				<Statusbar/>
 				<ListItem
-					text="Your Groceries"
-					onPress={this.handleGroceriesPress}
+					text="Primary Language"
+					onPress={this.handlePrimaryLanguagePress}
            			customIcon={
-           				<Icon name={'add'} size={ICON_SIZE} color={ICON_COLOR}/>	
+           				<Text>Italian</Text>
           			}
 				/>
 				<Separator/>
 				<ListItem
-					text="Set languages"
-					onPress={this.handleLanguagesPress}
+					text="Multiple Languages"
+					onPress={this.toggleLanguagesPress}
            			customIcon={
-           				<Icon name={'add'} size={ICON_SIZE} color={ICON_COLOR}/>
+           				<Icon name={this.state.multipleLanguages ? 'check-box' : 'check-box-outline-blank'} size={ICON_SIZE} color={ICON_COLOR}/>
           			}
 				/>
 				<Separator/>
-				
+
+				{renderMuLanguages}
+							
 				<ListItem
 					text="Grocerybot.io"
 					onPress={this.handleSitePress}
            			customIcon={
-           				<Icon name={'add'} size={ICON_SIZE} color={ICON_COLOR}/>
+           				<Icon name={'link'} size={ICON_SIZE} color={ICON_COLOR}/>
           			}
 				/>
 				<Separator/>

@@ -36,7 +36,6 @@ class Omnibox extends Component {
 	}
 
 	componentDidMount(){
-		
 		const name = Platform.OS === 'ios' ? 'Will' : 'Did';
 	    this.keyboardDidShowListener = Keyboard.addListener(
 	      `keyboard${name}Show`,
