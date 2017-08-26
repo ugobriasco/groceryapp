@@ -7,8 +7,7 @@ import store from './config/store';
 
 import Home from './screens/Home';
 import ShoppingList from './screens/ShoppingList';
-import AvailableGroceries from './screens/AvailableGroceries';
-import Options from './screens/Options';
+import Settings from './screens/Settings';
 import LanguagesList from './screens/LanguagesList';
 
 import Navigator from './config/routes';
@@ -38,7 +37,7 @@ export default () => (
 // export default () => (
 // 	<Provider store = {store}>
 // 		<AlertProvider>
-// 			<Options/>
+// 			{<LanguagesList/>}
 // 		</AlertProvider>
 // 	</Provider>
 // );
