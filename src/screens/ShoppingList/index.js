@@ -156,8 +156,8 @@ class ShoppingList extends Component {
 					renderItem={({item}) => (
 						<ListItem
 							title={item.title}
-							subtitle1={item.title2}
-							subtitle2={item.title3}
+							subtitle1={ this.props.isMultiLang ? item.title2 : null}
+							subtitle2={ this.props.isMultiLang ? item.title3 : null}
 							imageSource={item.imgUrl}
 							isChecked={item.isCompleted}
 							onCheckBoxPress={() => {this.handleCheckBoxPress(item)}}
@@ -217,6 +217,7 @@ const mapStateToProps = (state) => {
 		filterString: state.shoppinglist.filterString,
 		groceriesList: state.groceries.groceriesData.list,
 		groceriesView: state.groceries.groceriesView,
+		isMultiLang: state.settings.multipleLanguages,
 		
 	};
 }
