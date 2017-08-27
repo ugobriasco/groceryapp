@@ -13,6 +13,8 @@ export default EStylesheeSheet.create({
 		justifyContent: 'center',
 
 	},
+
+	//Component: Checkmark
 	checkmark_icon: {
 		backgroundColor: 'transparent',
 		width: 30,

@@ -29,16 +29,18 @@ class Settings extends Component {
 		alertWithType: PropTypes.func,
 
 	}
-
-	componentWillMount(){
-
-	}
-
 	constructor(props){
 		super(props)
 		this.state ={
 			expandLanguages: new Animated.Value(-70),
+			language: this.props.language[0].name,
 		}
+
+		this.handleAddtLanguage1Press = this.handleAddtLanguage1Press.bind(this);
+	}
+
+	componentWillReceiveProps(nextProps) {
+	    this.forceUpdate();
 	}
 
 
@@ -76,7 +78,6 @@ class Settings extends Component {
 
 			renderMuLanguages = (
 				<View>
-				<Text>{this.props.language[0].name}</Text>
 				<ListItem
 						text="Additional Language I"
 						onPress={this.handleAddtLanguage1Press}
@@ -104,6 +105,7 @@ class Settings extends Component {
 		return(
 			<ScrollView>
 				<Statusbar/>
+				<Text>{this.props.language[0].name}</Text>
 				<ListItem
 					text="Primary Language"
 					onPress={this.handlePrimaryLanguagePress}
