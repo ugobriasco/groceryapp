@@ -30,6 +30,10 @@ class Settings extends Component {
 
 	}
 
+	componentWillMount(){
+
+	}
+
 	constructor(props){
 		super(props)
 		this.state ={
@@ -39,11 +43,14 @@ class Settings extends Component {
 
 
 	handlePrimaryLanguagePress = () => {
-		this.props.navigation.navigate('LanguagesList', {title: 'Primary Language', type: 'primary'});	
+		this.props.navigation.navigate('LanguagesList', {title: 'Primary Language', type: 'language[0]'});	
 	}
 	
-	handleAddtLanguagesPress = () => {
-		this.props.navigation.navigate('LanguagesList', {title: 'Additional Language', type: 'secondary'});	
+	handleAddtLanguage1Press = () => {
+		this.props.navigation.navigate('LanguagesList', {title: 'Additional Language', type: 'language[1]'});	
+	}
+	handleAddtLanguage2Press = () => {
+		this.props.navigation.navigate('LanguagesList', {title: 'Additional Language', type: 'language[2]'});	
 	}
 	toggleLanguagesPress = () => {
 
@@ -69,13 +76,23 @@ class Settings extends Component {
 
 			renderMuLanguages = (
 				<View>
+				<Text>{this.props.language[0].name}</Text>
 				<ListItem
-						text="Additinal Languages"
-						onPress={this.handleAddtLanguagesPress}
+						text="Additional Language I"
+						onPress={this.handleAddtLanguage1Press}
 	           			customIcon={
 	           				<View>
-	           					<Text>German</Text>
-	           					<Text>Polish</Text>
+	           					<Text>{this.props.language[1].name}</Text>
+	           				</View>		
+	          			}
+				/>
+				<Separator/>
+				<ListItem
+						text="Additional Languages II"
+						onPress={this.handleAddtLanguage2Press}
+	           			customIcon={
+	           				<View>
+	           					<Text>{this.props.language[2].name}</Text>
 	           				</View>		
 	          			}
 				/>
@@ -91,7 +108,7 @@ class Settings extends Component {
 					text="Primary Language"
 					onPress={this.handlePrimaryLanguagePress}
            			customIcon={
-           				<Text>Italian</Text>
+           				<Text>{this.props.language[0].name}</Text>
           			}
 				/>
 				<Separator/>
@@ -122,6 +139,7 @@ class Settings extends Component {
 const mapStateToProps = (state) => {
 	return{
 		multipleLanguages: state.settings.multipleLanguages,
+		language: state.settings.language,
 	}
 }
 

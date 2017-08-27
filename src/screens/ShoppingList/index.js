@@ -90,15 +90,25 @@ class ShoppingList extends Component {
 	}
 	//ad item mapping from default groceribot api items
 	addItemFromGroceries = (item) => {
+
 		const data = this.props.dataList;
+
+		//get the language settings
+		const title = eval(`item.name.${this.props.language[0].id}`);
+		const subtitle1 = eval(`item.name.${this.props.language[1].id}`);
+		const subtitle2 = eval(`item.name.${this.props.language[2].id}`);
+
+
+
 		let list = [
 			new ItemModel(
-			  	item.name.it.main,
-			  	item.name.de.main,
-			  	item.name.pl.main,
+			  	title.main,
+			  	subtitle1.main,
+			  	subtitle2.main,
 			  	item.pic,
 			  	item._id,
 			  	)
+		
 	  	];
 	  	list = list.concat(data);
 	  	this.props.dispatch(updateGroceriesView(this.props.groceriesList));
@@ -218,6 +228,7 @@ const mapStateToProps = (state) => {
 		groceriesList: state.groceries.groceriesData.list,
 		groceriesView: state.groceries.groceriesView,
 		isMultiLang: state.settings.multipleLanguages,
+		language: state.settings.language,
 		
 	};
 }
