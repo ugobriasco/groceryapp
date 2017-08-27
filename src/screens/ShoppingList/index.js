@@ -137,7 +137,7 @@ class ShoppingList extends Component {
 			item.title3.match(new RegExp('.*' + text +'.*', 'gi'))
 		);
 		let filteredGroceries = this.props.groceriesList.filter((item) =>
-			item.name.it.main.match(new RegExp('.*' + text +'.*', 'gi'))
+			eval(`item.name.${this.props.language[0].id}.main`).match(new RegExp('.*' + text +'.*', 'gi'))
 		);
 		this.props.dispatch(updateListView(filteredList));
 		this.props.dispatch(updateGroceriesView(filteredGroceries));

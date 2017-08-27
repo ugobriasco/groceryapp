@@ -12,6 +12,7 @@ import {
 } from 'react-native';
 import PropTypes from 'prop-types';
 import EStyleSheet from 'react-native-extended-stylesheet';
+import { connect } from 'react-redux';
 
 import styles from './styles';
 import {SquareButton} from '../../../../components/Buttons';
@@ -33,6 +34,8 @@ class Omnibox extends Component {
 		this.state = {
 			autocompleteMarginBottom: new Animated.Value(-50),
 		};
+
+		
 	}
 
 	componentDidMount(){
@@ -70,6 +73,8 @@ class Omnibox extends Component {
 
 	render(){
 
+		const localization = this.props.language[0].id;
+
 		return(
 			<View style={styles.container}>
 				<Animated.View style={{marginBottom: this.state.autocompleteMarginBottom}}>	
@@ -79,7 +84,9 @@ class Omnibox extends Component {
 					  	data={this.props.data}
 					  	renderItem={({item}) => (
 					  		<HorizontalListItem
-					  			 title={`${item.name.it.main} ${item.name.it.spec}`}
+					  			 title={
+					  			 	`${eval(`item.name.${localization}.main`)} ${eval(`item.name.${localization}.spec`)}`
+					  			 }
 					  			 onPress = {() => {this.props.onAutocompletePress(item)}}
 					  		/>
 					  	)}
@@ -114,7 +121,14 @@ class Omnibox extends Component {
 
 	
 }
-export default Omnibox;
+
+
+
+const mapStateToProps = (state) => {
+	return{
+		language: state.settings.language,		
+	};
+}
 
 const _styles = EStyleSheet.create({
   	$primary: '$brandingBackground',
@@ -123,5 +137,7 @@ const _styles = EStyleSheet.create({
   	$white: '#ffff',
 
 });
+
+export default connect (mapStateToProps) (Omnibox);
 
 

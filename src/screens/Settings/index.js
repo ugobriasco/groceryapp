@@ -105,7 +105,6 @@ class Settings extends Component {
 		return(
 			<ScrollView>
 				<Statusbar/>
-				<Text>{this.props.language[0].name}</Text>
 				<ListItem
 					text="Primary Language"
 					onPress={this.handlePrimaryLanguagePress}
