@@ -13,8 +13,20 @@ export default EStylesheeSheet.create({
 		justifyContent: 'center',
 
 	},
-	icon: {
+	checkmark_icon: {
+		backgroundColor: 'transparent',
+		width: 30,
+		height: 30,
+		borderRadius: 15,  //1/2 of the height --> circle
+		justifyContent: 'center',
+		alignItems: 'center'
 
+	},
+	checkmark_iconVisible: {
+		backgroundColor: '$brandingBackground',
+	},
+	checkmark_checkIcon: {
+		width: 18
 	}
 	
 });
