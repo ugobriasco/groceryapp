@@ -52,6 +52,7 @@ const reducer = (state = initialState, action) => {
 				...state,
 				groceriesData: {
 					isFetching: false,
+					date: new Date(),
 					list: action.result.data
 				},
 				groceriesView: action.result.data

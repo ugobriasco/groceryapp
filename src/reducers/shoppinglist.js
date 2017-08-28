@@ -10,9 +10,7 @@ import {
 import ItemModel from '../models/ItemModel';
 //import mockupData from '../data/mockupData';
 
-const initialData = [
-  new ItemModel('Mele','Äpfel','Jabłka','http://knowledge.wharton.upenn.edu/wp-content/uploads/2014/03/apple-1024x440.jpg'),
-];
+const initialData = [];
 
 const initialState = {
 	dataList: initialData,
