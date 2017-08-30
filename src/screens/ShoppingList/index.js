@@ -36,12 +36,15 @@ const move = (array, fromIndex, toIndex) => {
 };
 
 const remove = (array, index) => {
-	return array.splice(index, 1);
+	let arr = array.slice();
+	arr.splice(index, 1);
+	return arr;
 };
 
 const switchmark = (item) =>  {
 	if(item.isCompleted != undefined)  return item.isCompleted = !item.isCompleted
 };
+
 
 class ShoppingList extends Component {
 
@@ -62,14 +65,12 @@ class ShoppingList extends Component {
 	componentWillMount(){
 		this.props.dispatch(getInitialGroceries());
 	}
-
 	//switch item.isCompleted and move it to the top/bottom of the list
 	updateItem = (item) => {
 		const i = this.props.dataList.indexOf(item);
 		let size = this.props.dataList.length;
 		let list = this.props.dataList;
-
-
+		console.log(i);
 		if(list[i].isCompleted === false) {
 			list[i].isCompleted = true;
 			move(list,i,size);
@@ -117,10 +118,16 @@ class ShoppingList extends Component {
 	//remove an item from the list
 	removeItem = (item) => {
 		const i = this.props.dataList.indexOf(item);
-		let list = this.props.dataList;
-		remove(list,i);
+		const list = remove(this.props.dataList,i);
 		this.props.dispatch(syncLists(list));
 		this.forceUpdate();	
+	}
+
+	//debugging function
+	lookAt = (item) => {
+		const i = this.props.dataList.indexOf(item);
+		console.log(i);
+
 	}
 
 
@@ -144,10 +151,8 @@ class ShoppingList extends Component {
 		this.props.dispatch(changeFilterText(text));
 	}
 	handleAutocompletePress = (item) => {item ? this.addItemFromGroceries(item): null}	
-	handleOptionsPress = () => {
-		
+	handleOptionsPress = () => {	
 		this.props.navigation.navigate('Settings');
-
 	}
 
 	render(){
