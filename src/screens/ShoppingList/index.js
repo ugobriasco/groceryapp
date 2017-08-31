@@ -58,8 +58,9 @@ const toggle = (array, item) =>  {
 //and moves it to the top/bottom of the stack
 const toggleAndMove = (array, item) => {
 	let arr = array.slice();
+	console.log(arr);
 	for (let i=0; i< arr.length; i++){
-		if(arr[i]._id === item._id){
+		if( arr[i]._id === item._id ){
 			if(arr[i].isCompleted === true){
 				arr[i].isCompleted = false;
 				move(arr,i,0);
@@ -139,7 +140,7 @@ class ShoppingList extends Component {
 
 	//UI Components handling
 	_handleAddPress = 			(text) => {text ? this.addItem(text) : null}
-	_handleCheckboxPress = 		(item) => {item ? this.updateItem() : null} 
+	_handleCheckboxPress = 		(item) => {item ? this.updateItem(item) : null} 
 	_handleSwipeRightComplete = (item) => {item ? this.removeItem(item) : null}
 	_handleSwipeLeftComplete = 	(item) => {item ? this.updateItem(item) : null}
 	_handleFilterStrChange = 	(text) => {
