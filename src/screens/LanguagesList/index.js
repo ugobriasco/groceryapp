@@ -13,21 +13,28 @@ import { setLanguages } from '../../actions/settings';
 import { Statusbar } from '../../components/Header';
 import { Checkmark } from '../../components/Buttons';
 
+
+const replace = (array, index, object) => {
+	let arr = array.slice();
+	arr.splice(index,1,object);
+	return arr;
+}
+
+
 class LanguagesList extends Component {
 	
 	static propTypes = {
 
 	}
 
-	handlePress = (item) => {
+	//buggy
+	_handlePress = (item) => {
 		const { type } = this.props.navigation.state.params;
-		let _language = this.props.language;
-
-		if(type === 'language[0]') _language[0] = item;
-		if(type === 'language[1]') _language[1] = item;
-		if(type === 'language[2]') _language[2] = item;
-		
-		this.props.dispatch(setLanguages(_language));
+		let updatedLanguage = [];
+		if(type === 'language[0]')  updatedLanguage = replace(this.props.language,0,item);
+		if(type === 'language[1]') updatedLanguage = replace(this.props.language,1,item);
+		if(type === 'language[2]') updatedLanguage = replace(this.props.language,2,item);
+		this.props.dispatch(setLanguages(updatedLanguage));
 		this.props.navigation.goBack(null);
 	}
 
@@ -45,7 +52,7 @@ class LanguagesList extends Component {
 					renderItem = {({item})=>(
 						<ListItem
 							text={item.name}
-							onPress={() => (this.handlePress(item))}
+							onPress={() => (this._handlePress(item))}
 							customIcon = {
 								<Checkmark
 									isVisible={item.id === compairsonLanguage}

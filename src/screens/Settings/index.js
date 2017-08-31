@@ -65,7 +65,8 @@ class Settings extends Component {
 			//this.setState({multipleLanguages: true});
 			this.props.dispatch(setOptMutipleLanguages(true));
 		}
-	};	
+	};
+		
 	handleSitePress = () => {
 		Linking.openURL('httpt://gb.matchyourtie.com')
 		.catch(() => this.props.alertWithType('error', 'Sorry!', 'Grocerybot.io cant be opened'));
