@@ -22,7 +22,6 @@ import { Omnibox } from './components/Omnibox';
 //backend
 import ItemModel from '../../models/ItemModel'; 
 import { 
-	getInitialDataList,
 	changeFilterText,
 	updateListView,
 	updateDataList,
@@ -31,6 +30,8 @@ import {
 } from '../../actions/shoppinglist';
 import { updateGroceriesView, getInitialGroceries }from '../../actions/groceries';
 
+
+//general utility functions, to be separated 
 const move = (array, fromIndex, toIndex) => {
 	return array.splice(toIndex, 0, array.splice(fromIndex, 1)[0]);
 };
@@ -41,26 +42,53 @@ const remove = (array, index) => {
 	return arr;
 };
 
-const switchmark = (item) =>  {
-	if(item.isCompleted != undefined)  return item.isCompleted = !item.isCompleted
+
+//toggles the 'isCompleted' property of an Item
+const toggle = (array, item) =>  {
+	let arr = array.slice();
+	for (let i=0; i< arr.length; i++){
+		if(arr[i]._id === item._id){
+			arr[i].isCompleted = !arr[i].isCompleted
+		}
+	}
+	return arr;
 };
+
+//toggles the 'isCompleted' property of an Item
+//and moves it to the top/bottom of the stack
+const toggleAndMove = (array, item) => {
+	let arr = array.slice();
+	for (let i=0; i< arr.length; i++){
+		if(arr[i]._id === item._id){
+			if(arr[i].isCompleted === true){
+				arr[i].isCompleted = false;
+				move(arr,i,0);
+				break;
+				
+			}
+			else {
+				arr[i].isCompleted = true;
+				move(arr,i,arr.length);
+				break;		
+			}
+		}	
+	}
+	return arr;
+}
 
 
 class ShoppingList extends Component {
 
-
-	//to update
 	static propTypes = {
 		dispatch: PropTypes.func,
-		getInitialDataList: PropTypes.func,
-		changeFilterText: PropTypes.func,
-		updateListView: PropTypes.func,
-		updateDataList: PropTypes.func,
-		syncLists: PropTypes.func,
 		dataList: PropTypes.array,
 		listView: PropTypes.array,
-		filterString: PropTypes.string
-	} //to update
+		filterString: PropTypes.string,
+		groceriesList: PropTypes.array,
+		groceriesView: PropTypes.array,
+		isMultiLang: PropTypes.bool,
+		language: PropTypes.array,
+	}
 
 	componentWillMount(){
 		this.props.dispatch(getInitialGroceries());
@@ -69,18 +97,8 @@ class ShoppingList extends Component {
 	updateItem = (item) => {
 		const i = this.props.dataList.indexOf(item);
 		let size = this.props.dataList.length;
-		let list = this.props.dataList;
-		console.log(i);
-		if(list[i].isCompleted === false) {
-			list[i].isCompleted = true;
-			move(list,i,size);
-		} //if completed, item move to the bottom
-		else {
-			list[i].isCompleted = false;
-			move(list,i,0);
-		} // if not completed, item moved to the top
+		const list = toggleAndMove(this.props.dataList, item);
 		this.props.dispatch(syncLists(list));
-		this.forceUpdate();
 	}
 	//add an item to the top of the list
 	addItem = (text) => {
@@ -99,8 +117,6 @@ class ShoppingList extends Component {
 		const subtitle1 = eval(`item.name.${this.props.language[1].id}`);
 		const subtitle2 = eval(`item.name.${this.props.language[2].id}`);
 
-
-
 		let list = [
 			new ItemModel(
 			  	title.main,
@@ -109,7 +125,6 @@ class ShoppingList extends Component {
 			  	item.pic,
 			  	item._id,
 			  	)
-		
 	  	];
 	  	list = list.concat(data);
 	  	this.props.dispatch(updateGroceriesView(this.props.groceriesList));
@@ -119,25 +134,15 @@ class ShoppingList extends Component {
 	removeItem = (item) => {
 		const i = this.props.dataList.indexOf(item);
 		const list = remove(this.props.dataList,i);
-		this.props.dispatch(syncLists(list));
-		this.forceUpdate();	
+		this.props.dispatch(syncLists(list));	
 	}
 
-	//debugging function
-	lookAt = (item) => {
-		const i = this.props.dataList.indexOf(item);
-		console.log(i);
-
-	}
-
-
-
-	//UI Objects handling
-	handleAddPress = 			(text) => {text ? this.addItem(text) : null}
-	handleCheckBoxPress = 		(item) => {item ? this.updateItem(item) : null} 
-	handleSwipeRightComplete = 	(item) => {item ? this.removeItem(item) : null}
-	handleSwipeLeftComplete = 	(item) => {item ? this.updateItem(item) : null}
-	handleFilterStrChange = 	(text) => {
+	//UI Components handling
+	_handleAddPress = 			(text) => {text ? this.addItem(text) : null}
+	_handleCheckboxPress = 		(item) => {item ? this.updateItem() : null} 
+	_handleSwipeRightComplete = (item) => {item ? this.removeItem(item) : null}
+	_handleSwipeLeftComplete = 	(item) => {item ? this.updateItem(item) : null}
+	_handleFilterStrChange = 	(text) => {
 		let filteredList = this.props.dataList.filter((item) =>
 			item.title.match(new RegExp('.*' + text +'.*', 'gi'))  ||
 			item.title2.match(new RegExp('.*' + text +'.*', 'gi'))  ||
@@ -150,8 +155,8 @@ class ShoppingList extends Component {
 		this.props.dispatch(updateGroceriesView(filteredGroceries));
 		this.props.dispatch(changeFilterText(text));
 	}
-	handleAutocompletePress = (item) => {item ? this.addItemFromGroceries(item): null}	
-	handleOptionsPress = () => {	
+	_handleAutocompletePress = 	(item) => {item ? this.addItemFromGroceries(item): null}	
+	_handleOptionsPress = () => {	
 		this.props.navigation.navigate('Settings');
 	}
 
@@ -175,9 +180,9 @@ class ShoppingList extends Component {
 							subtitle2={ this.props.isMultiLang ? item.title3 : null}
 							imageSource={item.imgUrl}
 							isChecked={item.isCompleted}
-							onCheckBoxPress={() => {this.handleCheckBoxPress(item)}}
-							onSwipeRightComplete={() => {this.handleSwipeRightComplete(item)}}
-							onSwipeLeftComplete= {() => {this.handleSwipeLeftComplete(item)}}
+							onCheckBoxPress={() => {this._handleCheckboxPress(item)}}
+							onSwipeRightComplete={() => {this._handleSwipeRightComplete(item)}}
+							onSwipeLeftComplete= {() => {this._handleSwipeLeftComplete(item)}}
 
 						/>
 					)}
@@ -192,9 +197,9 @@ class ShoppingList extends Component {
 		//optional
 		// let renderedListView = (
 		// 	<ShoppingListView 
-		// 			onCheckBoxPress={(item) => {this.handleCheckBoxPress(item)}}
+		// 			onCheckBoxPress={(item) => {this._handleCheckboxPress(item)}}
 		// 			onSwipeRightComplete={(item) => {this.handleSwipeRightComplete(item)}}
-		// 			onSwipeLeftComplete= {(item) => {this.handleSwipeLeftComplete(item)}}
+		// 			onSwipeLeftComplete= {(item) => {this._handleSwipeLeftComplete(item)}}
 		// 			{...this.props}
 		// 	/>
 		// );
@@ -206,15 +211,15 @@ class ShoppingList extends Component {
 		return(
 			<DataListContainer>
 				<Statusbar />
-				<Header onPress={this.handleOptionsPress} />
+				<Header onPress={this._handleOptionsPress} />
 				
 				{renderedListView}
 				
 				<Omnibox
-					onPress={() => this.handleAddPress(this.props.filterString)}
-					onChangeText= {this.handleFilterStrChange}
+					onPress={() => this._handleAddPress(this.props.filterString)}
+					onChangeText= {this._handleFilterStrChange}
 		 			value = {this.props.filterString}
-					onAutocompletePress = {(item) => {this.handleAutocompletePress(item)}}
+					onAutocompletePress = {(item) => {this._handleAutocompletePress(item)}}
 					data={this.props.groceriesView}
 					enableAutocomplete={true}
 					
