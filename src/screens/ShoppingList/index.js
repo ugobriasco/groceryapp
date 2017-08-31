@@ -120,9 +120,9 @@ class ShoppingList extends Component {
 
 		let list = [
 			new ItemModel(
-			  	title.main,
-			  	subtitle1.main,
-			  	subtitle2.main,
+			  	`${title.main} ${title.spec}`,
+			  	`${subtitle1.main} ${subtitle1.spec}`,
+			  	`${subtitle2.main} ${subtitle2.spec}`,
 			  	item.pic,
 			  	item._id,
 			  	)
