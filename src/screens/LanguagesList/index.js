@@ -20,18 +20,20 @@ const replace = (array, index, object) => {
 	return arr;
 }
 
-
 class LanguagesList extends Component {
 	
 	static propTypes = {
-
+		language: PropTypes.array,
+		dataList: PropTypes.array,
+		groceryList: PropTypes.array,
+		dispatch: PropTypes.func,
+		navigation: PropTypes.func,
 	}
 
-	//buggy
 	_handlePress = (item) => {
 		const { type } = this.props.navigation.state.params;
 		let updatedLanguage = [];
-		if(type === 'language[0]')  updatedLanguage = replace(this.props.language,0,item);
+		if(type === 'language[0]') updatedLanguage = replace(this.props.language,0,item);
 		if(type === 'language[1]') updatedLanguage = replace(this.props.language,1,item);
 		if(type === 'language[2]') updatedLanguage = replace(this.props.language,2,item);
 		this.props.dispatch(setLanguages(updatedLanguage));
@@ -72,7 +74,9 @@ class LanguagesList extends Component {
 
 const mapStatesToProps = (state) => {
 	return {
-		language: state.settings.language
+		language: state.settings.language,
+		dataList: state.shoppinglist.dataList,
+		groceryList: state.groceries.groceriesData.list,
 	}
 }
 
