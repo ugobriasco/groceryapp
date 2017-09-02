@@ -3,6 +3,7 @@ import {
 	View,
 	TouchableOpacity,
 	Image,
+	Text,
 } from 'react-native';
 
 import PropTypes from 'prop-types';
@@ -14,6 +15,9 @@ import styles from './styles';
 const Header = ({onPress}) => (
 	
 	<View style={styles.container}>
+		<View style={styles.title_container}>
+			<Text style={styles.title}>Your shopping list</Text>
+		</View>
 		<TouchableOpacity style={styles.button} onPress={onPress} >
 			<Image resizeMode="contain" style={styles.icon} source={require('./images/gear.png')}/>
 		</TouchableOpacity>
