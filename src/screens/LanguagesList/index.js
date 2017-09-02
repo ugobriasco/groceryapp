@@ -27,7 +27,7 @@ class LanguagesList extends Component {
 		dataList: PropTypes.array,
 		groceryList: PropTypes.array,
 		dispatch: PropTypes.func,
-		navigation: PropTypes.func,
+		navigation: PropTypes.any,
 	}
 
 	_handlePress = (item) => {

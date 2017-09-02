@@ -1,10 +1,8 @@
  class ItemModel{
-  constructor(title, title2, title3, imgUrl, extID, isCompleted){
-    this.title = title;
-    this.title2 = title2 || '';
-    this.title3 = title3 || '';
-    this.imgUrl = imgUrl || '';
-    this.extID = extID || '';
+  constructor(rawObj, groceryObj, isCompleted){
+
+    this.rawObj = rawObj;
+    this.groceryObj = groceryObj || '';
     this.isCompleted = isCompleted || false;
     this._id = generateID();
     this.cretedAt = new Date();
@@ -17,3 +15,36 @@ function generateID(){
 }
 
 module.exports = ItemModel;
+
+
+
+
+/*
+    constructor(raw: Obj, grocery: Obj, isCompleted)
+ */
+
+
+/*
+{
+    _id: generateID(),
+    createdAt: Date(),
+    isCompleted : False
+    raw{
+        text:
+        lang:
+    },
+    grocery:{
+        _id:
+        _name:{
+            it: {
+                main: 
+                spec:
+            },
+            de: {
+                main:
+                spec:
+            }
+        }
+    }
+}
+ */

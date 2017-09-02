@@ -104,7 +104,7 @@ class ShoppingList extends Component {
 	//add an item to the top of the list
 	addItem = (text) => {
 		const data = this.props.dataList;
-		let list = [new ItemModel(text)];
+		let list = [new ItemModel({text: text, lang: this.props.language[0].id})];
 		list = list.concat(data);
 		this.props.dispatch(syncLists(list));
 	}
@@ -118,15 +118,11 @@ class ShoppingList extends Component {
 		const subtitle1 = eval(`item.name.${this.props.language[1].id}`);
 		const subtitle2 = eval(`item.name.${this.props.language[2].id}`);
 
-		let list = [
-			new ItemModel(
-			  	`${title.main} ${title.spec}`,
-			  	`${subtitle1.main} ${subtitle1.spec}`,
-			  	`${subtitle2.main} ${subtitle2.spec}`,
-			  	item.pic,
-			  	item._id,
-			  	)
-	  	];
+	 
+	 	let list = [
+	 	new ItemModel("",item)
+	 	];
+
 	  	list = list.concat(data);
 	  	this.props.dispatch(updateGroceriesView(this.props.groceriesList));
 		this.props.dispatch(syncLists(list));
@@ -144,11 +140,28 @@ class ShoppingList extends Component {
 	_handleSwipeRightComplete = (item) => {item ? this.removeItem(item) : null}
 	_handleSwipeLeftComplete = 	(item) => {item ? this.updateItem(item) : null}
 	_handleFilterStrChange = 	(text) => {
-		let filteredList = this.props.dataList.filter((item) =>
-			item.title.match(new RegExp('.*' + text +'.*', 'gi'))  ||
-			item.title2.match(new RegExp('.*' + text +'.*', 'gi'))  ||
-			item.title3.match(new RegExp('.*' + text +'.*', 'gi'))
-		);
+
+
+		const titleStr = `item.groceryObj.name.${this.props.language[0].id}.main`;
+		const subtitle1Str = `item.groceryObj.name.${this.props.language[1].id}.main`;
+		const subtitle2Str = `item.groceryObj.name.${this.props.language[2].id}.main`;
+		
+
+		let filteredList = this.props.dataList.filter(function f(item){
+
+			if(item.rawObj.text){
+				if(item.rawObj.text.match(new RegExp('.*' + text +'.*', 'gi'))) return true;
+			} 
+			if(item.groceryObj.name){
+				if(
+					eval(titleStr).match(new RegExp('.*' + text +'.*', 'gi')) ||
+					eval(subtitle1Str).match(new RegExp('.*' + text +'.*', 'gi')) ||
+					eval(subtitle2Str).match(new RegExp('.*' + text +'.*', 'gi'))
+				) return true
+			}
+			
+		});
+
 		let filteredGroceries = this.props.groceriesList.filter((item) =>
 			eval(`item.name.${this.props.language[0].id}.main`).match(new RegExp('.*' + text +'.*', 'gi'))
 		);
@@ -162,7 +175,6 @@ class ShoppingList extends Component {
 	}
 
 	render(){
-
 		let renderedListView = (<View></View>);
 		if(this.props.listView.length === 0 && this.props.dataList.length === 0) {
 			renderedListView = (<EmptyListPlaceholder opt='empty-list'/>);
@@ -170,16 +182,28 @@ class ShoppingList extends Component {
 		if(this.props.listView.length === 0 && this.props.dataList.length > 0) {
 			renderedListView = (<EmptyListPlaceholder opt='empty-filter'/>);
 		} else {
+
+
+			const titleStr = `item.groceryObj.name.${this.props.language[0].id}.main`;
+			const subtitle1Str = `item.groceryObj.name.${this.props.language[1].id}.main`;
+			const subtitle2Str = `item.groceryObj.name.${this.props.language[2].id}.main`;
+
+
+
+			//to refactor
 			renderedListView = (
 				<FlatList
 					style = {{flex: 1}}
 					data={this.props.listView}
 					renderItem={({item}) => (
 						<ListItem
-							title={item.title}
-							subtitle1={ this.props.isMultiLang ? item.title2 : null}
-							subtitle2={ this.props.isMultiLang ? item.title3 : null}
-							imageSource={item.imgUrl}
+							title={ item.groceryObj 
+								? eval(titleStr)
+								: item.rawObj.text
+							}
+							subtitle1={ this.props.isMultiLang && item.groceryObj ? eval(subtitle1Str) : null}
+							subtitle2={ this.props.isMultiLang && item.groceryObj ? eval(subtitle2Str) : null}
+							imageSource={ item.groceryObj ? item.groceryObj.pic : null}
 							isChecked={item.isCompleted}
 							onCheckBoxPress={() => {this._handleCheckboxPress(item)}}
 							onSwipeRightComplete={() => {this._handleSwipeRightComplete(item)}}
