@@ -18,6 +18,10 @@ import styles from './styles';
 import {SquareButton} from '../../../../components/Buttons';
 import HorizontalListItem from './HorizontalListItem';
 
+import { 
+	changeFilterText, 	
+} from '../../../../actions/shoppinglist';
+
 const ANIMATION_DURATION = 400;
 
 class Omnibox extends Component {
@@ -57,10 +61,15 @@ class Omnibox extends Component {
 
 	
 	_keyboardWillShow = () => {
+		this.props.dispatch(changeFilterText());
+
 		Animated.timing(this.state.autocompleteMarginBottom, {
 			toValue: 0,
 			duration: ANIMATION_DURATION,
 		}).start();
+
+		
+
 	}
 
 	_keyboardWillHide = () => {
