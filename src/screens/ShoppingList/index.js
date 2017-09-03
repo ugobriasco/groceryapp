@@ -101,7 +101,7 @@ class ShoppingList extends Component {
 		const list = toggleAndMove(this.props.dataList, item);
 		this.props.dispatch(syncLists(list));
 	}
-	//add an item to the top of the list
+	//add an item to the top of the list 
 	addItem = (text) => {
 		const data = this.props.dataList;
 		let list = [new ItemModel({text: text, lang: this.props.language[0].id})];
@@ -110,7 +110,6 @@ class ShoppingList extends Component {
 	}
 	//ad item mapping from default groceribot api items
 	addItemFromGroceries = (item) => {
-
 		const data = this.props.dataList;
 
 		//get the language settings
@@ -140,13 +139,10 @@ class ShoppingList extends Component {
 	_handleSwipeRightComplete = (item) => {item ? this.removeItem(item) : null}
 	_handleSwipeLeftComplete = 	(item) => {item ? this.updateItem(item) : null}
 	_handleFilterStrChange = 	(text) => {
-
-
 		const titleStr = `item.groceryObj.name.${this.props.language[0].id}.main`;
 		const subtitle1Str = `item.groceryObj.name.${this.props.language[1].id}.main`;
 		const subtitle2Str = `item.groceryObj.name.${this.props.language[2].id}.main`;
 		
-
 		let filteredList = this.props.dataList.filter(function f(item){
 
 			if(item.rawObj.text){
@@ -175,22 +171,20 @@ class ShoppingList extends Component {
 	}
 
 	render(){
+
 		let renderedListView = (<View></View>);
 		if(this.props.listView.length === 0 && this.props.dataList.length === 0) {
-			renderedListView = (<EmptyListPlaceholder opt='empty-list'/>);
+			renderedListView = (<EmptyListPlaceholder _opt='empty-list'/>);
 		} 
 		if(this.props.listView.length === 0 && this.props.dataList.length > 0) {
-			renderedListView = (<EmptyListPlaceholder opt='empty-filter'/>);
+			renderedListView = (<EmptyListPlaceholder _opt='empty-filter'/>);
 		} else {
 
 
-			const titleStr = `item.groceryObj.name.${this.props.language[0].id}.main`;
-			const subtitle1Str = `item.groceryObj.name.${this.props.language[1].id}.main`;
-			const subtitle2Str = `item.groceryObj.name.${this.props.language[2].id}.main`;
+			const titleStr = `item.groceryObj.name.${this.props.language[0].id}`;
+			const subtitle1Str = `item.groceryObj.name.${this.props.language[1].id}`;
+			const subtitle2Str = `item.groceryObj.name.${this.props.language[2].id}`;
 
-
-
-			//to refactor
 			renderedListView = (
 				<FlatList
 					style = {{flex: 1}}
@@ -198,11 +192,11 @@ class ShoppingList extends Component {
 					renderItem={({item}) => (
 						<ListItem
 							title={ item.groceryObj 
-								? eval(titleStr)
+								? `${eval(titleStr).main} ${eval(titleStr).spec}`
 								: item.rawObj.text
 							}
-							subtitle1={ this.props.isMultiLang && item.groceryObj ? eval(subtitle1Str) : null}
-							subtitle2={ this.props.isMultiLang && item.groceryObj ? eval(subtitle2Str) : null}
+							subtitle1={ this.props.isMultiLang && item.groceryObj ? `${eval(subtitle1Str).main} ${eval(subtitle1Str).spec}` : null}
+							subtitle2={ this.props.isMultiLang && item.groceryObj ? `${eval(subtitle2Str).main} ${eval(subtitle2Str).spec}` : null}
 							imageSource={ item.groceryObj ? item.groceryObj.pic : null}
 							isChecked={item.isCompleted}
 							onCheckBoxPress={() => {this._handleCheckboxPress(item)}}
@@ -216,22 +210,6 @@ class ShoppingList extends Component {
 				/>
 			);
 		}
-
-
-
-		//optional
-		// let renderedListView = (
-		// 	<ShoppingListView 
-		// 			onCheckBoxPress={(item) => {this._handleCheckboxPress(item)}}
-		// 			onSwipeRightComplete={(item) => {this.handleSwipeRightComplete(item)}}
-		// 			onSwipeLeftComplete= {(item) => {this._handleSwipeLeftComplete(item)}}
-		// 			{...this.props}
-		// 	/>
-		// );
-
-//RETURN
-
-
 		
 		return(
 			<DataListContainer>
