@@ -16,7 +16,7 @@ const Header = ({onPress}) => (
 	
 	<View style={styles.container}>
 		<View style={styles.title_container}>
-			<Text style={styles.title}>Your shopping list</Text>
+			<Text style={styles.title}>The GroceryApp</Text>
 		</View>
 		<TouchableOpacity style={styles.button} onPress={onPress} >
 			<Image resizeMode="contain" style={styles.icon} source={require('./images/gear.png')}/>
