@@ -66,10 +66,7 @@ class Omnibox extends Component {
 		Animated.timing(this.state.autocompleteMarginBottom, {
 			toValue: 0,
 			duration: ANIMATION_DURATION,
-		}).start();
-
-		
-
+		}).start();	
 	}
 
 	_keyboardWillHide = () => {
@@ -78,7 +75,6 @@ class Omnibox extends Component {
 			duration: ANIMATION_DURATION,
 		}).start();
 	}
-	
 
 	render(){
 
@@ -96,10 +92,18 @@ class Omnibox extends Component {
 					  			 title={
 					  			 	`${eval(`item.name.${localization}.main`)} ${eval(`item.name.${localization}.spec`)}`
 					  			 }
-					  			 onPress = {() => {this.props.onAutocompletePress(item)}}
+					  			 onPress = {() => {
+					  			 	this.props.onAutocompletePress(item);
+
+
+					  			 }}
 					  		/>
 					  	)}
 					  	keyExtractor = {item => item._id}
+					  	ref='listRef'
+						onContentSizeChange={() => {
+							    this.refs.listRef.scrollToOffset({x: 0, y: 0, animated: true})
+							 }}
 					  			
 					/>
 				</Animated.View>
