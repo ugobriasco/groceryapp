@@ -76,6 +76,12 @@ class Omnibox extends Component {
 		}).start();
 	}
 
+	_handleKeyDown = (e) => {
+	    // if(e.nativeEvent.key == "Enter"){
+	    //     dismissKeyboard();
+	    // }
+	}
+
 	render(){
 
 		const localization = this.props.language[0].id;
@@ -110,6 +116,8 @@ class Omnibox extends Component {
 				<View style={styles.input_group}>
 					<View style={styles.inputform_wrapper}>
 						<TextInput
+							onKeyPress={this._handleKeyDown}
+							
 							style={styles.inputform}
 							placeholder='Add an item or Search'
 							blurOnSubmit={false}
@@ -130,10 +138,17 @@ class Omnibox extends Component {
 			</View>
 		);
 	}
-
-
 	
 }
+
+
+
+<TextInput
+    onKeyPress={this.handleKeyDown}
+    placeholder="Enter text here..."
+/>
+
+
 
 
 
