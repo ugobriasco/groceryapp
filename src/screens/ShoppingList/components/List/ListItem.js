@@ -66,7 +66,7 @@ const ListItem = ({
 	return(
 		<Swipeable 
 			rightActionActivationDistance={200}
-			leftActionActivationDistance={200}		
+			leftActionActivationDistance={100}		
 			rightContent={rightContent}
         	leftContent={leftContent}
         	onRightActionComplete={onSwipeRightComplete}
