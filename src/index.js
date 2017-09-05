@@ -1,6 +1,7 @@
 'use strict'
 import React, { Component} from 'react';
 import Estylesheet from 'react-native-extended-stylesheet';
+import SplashScreen from 'react-native-splash-screen';
 import { Provider } from 'react-redux';
 import store from './config/store';
 
@@ -25,22 +26,32 @@ Estylesheet.build({
 });
 
 
-export default () => (
-	<Provider store = {store}>
-		<AlertProvider>
-			<Navigator onNavigationStateChange={null} />
-		</AlertProvider>
-	</Provider>
-);
-
-
 // export default () => (
 // 	<Provider store = {store}>
 // 		<AlertProvider>
-// 			{<LanguagesList/>}
+// 			<Navigator onNavigationStateChange={null} />
 // 		</AlertProvider>
 // 	</Provider>
 // );
 
+class App extends Component {
+
+	componentDidMount(){
+		SplashScreen.hide();
+
+	}
+
+	render(){
+		return(
+			<Provider store = {store}>
+				<AlertProvider>
+ 					<Navigator onNavigationStateChange={null} />	
+				</AlertProvider>
+			</Provider>
+		);
+	}
+}
+
+export default App;
 
 
