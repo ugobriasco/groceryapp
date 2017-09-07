@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`create a GET_INITIAL_GROCERIES action 1`] = `
+Object {
+  "type": "GET_INITIAL_GROCERIES",
+}
+`;
+
+exports[`create a UPDATE_GROCERIES action 1`] = `
+Object {
+  "type": "UPDATE_GROCERIES",
+  "updatedGroceries": Array [
+    Object {
+      "id": "1",
+    },
+  ],
+}
+`;
+
+exports[`create a UPDATE_GROCERIESVIEW action 1`] = `
+Object {
+  "type": "UPDATE_GROCERIESVIEW",
+  "updatedGroceriesView": Array [
+    Object {
+      "id": "1",
+    },
+  ],
+}
+`;
