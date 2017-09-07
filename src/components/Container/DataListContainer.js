@@ -5,14 +5,14 @@ import styles from './styles';
 
 
 
-const Container = ({children}) => (
+const DataListContainer = ({children}) => (
 	<View style={styles.datalist_container}>
 		{children}
 	</View>
 );
 	
-Container.propTypes = {
+DataListContainer.propTypes = {
 	children: PropTypes.any,
 }
 
-export default Container;
+export default DataListContainer;

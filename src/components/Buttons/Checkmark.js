@@ -38,7 +38,7 @@ const Icon = ({checkmark = true, isVisible, iconBackground}) => {
 
 Icon.PropTypes = {
 	checkmark: PropTypes.bool,
-	visible: PropTypes.bool,
+	isVisible: PropTypes.bool,
 	iconBackground: PropTypes.string,
 	
 };
