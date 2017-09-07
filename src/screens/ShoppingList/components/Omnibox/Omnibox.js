@@ -100,8 +100,6 @@ class Omnibox extends Component {
 					  			 }
 					  			 onPress = {() => {
 					  			 	this.props.onAutocompletePress(item);
-
-
 					  			 }}
 					  		/>
 					  	)}
@@ -117,7 +115,7 @@ class Omnibox extends Component {
 					<View style={styles.inputform_wrapper}>
 						<TextInput
 							onKeyPress={this._handleKeyDown}
-							
+
 							style={styles.inputform}
 							placeholder='Add an item or Search'
 							blurOnSubmit={false}

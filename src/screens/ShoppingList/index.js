@@ -219,13 +219,13 @@ class ShoppingList extends Component {
 				{renderedListView}
 				
 				<Omnibox
-					onPress={() => this._handleAddPress(this.props.filterString)}
+					onPress ={() => this._handleAddPress(this.props.filterString)}
+					onSubmitEditing = {() => this._handleAddPress(this.props.filterString)}
 					onChangeText= {this._handleFilterStrChange}
 		 			value = {this.props.filterString}
 					onAutocompletePress = {(item) => {this._handleAutocompletePress(item)}}
 					data={this.props.groceriesView}
 					enableAutocomplete={true}
-					
 				/>
 			</DataListContainer>	
 		);
