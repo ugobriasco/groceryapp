@@ -4,7 +4,8 @@
 	"private": true,
 	"scripts": {
 		"start": "node node_modules/react-native/local-cli/cli.js start",
-		"test": "jest"
+		"test": "jest --watch",
+		"testcoverage": "jest --coverage || true && open coverage/lcov-report/index.html"
 	},
 	"dependencies": {
 		"color": "^2.0.0",
@@ -34,6 +35,7 @@
 		"react-test-renderer": "16.0.0-alpha.12"
 	},
 	"jest": {
-		"preset": "react-native"
+		"preset": "react-native",
+		"collectCoverageFrom": ["src/*.js","src/**.js","src/***.js","src/****.js"]
 	}
 }
