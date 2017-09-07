@@ -13,26 +13,9 @@ import LanguagesList from './screens/LanguagesList';
 
 import Navigator from './config/routes';
 import { AlertProvider } from './components/Alert';
+import buildStyles from './config/styles';
 
-Estylesheet.build({
-	$brandingBackground: '#18bc9c',
-	$primaryBackground: '#FFFF',
-	$dangerBackground: '#ea5a4d',
-	$successBackground: '#18bc9c',
-	$primaryBoxColor: '#EFF0F1',
-	$primaryTextColor: '#777777',
-	$border: '#77777b',
-
-});
-
-
-// export default () => (
-// 	<Provider store = {store}>
-// 		<AlertProvider>
-// 			<Navigator onNavigationStateChange={null} />
-// 		</AlertProvider>
-// 	</Provider>
-// );
+buildStyles();
 
 class App extends Component {
 
