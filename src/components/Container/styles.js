@@ -10,12 +10,6 @@ export default EStyleSheet.create({
 	datalist_container:{
 		flex: 1,
 		backgroundColor: '$primaryBackground',
-	},
-	autocomplete_container:{
-		flexDirection: 'row',
-		marginBottom: 0,
-		height: 60,
-		backgroundColor: 'transparent'
 	}
 
 });

@@ -2,7 +2,7 @@ import React from 'react';
 import { View } from 'react-native';
 import renderer from 'react-test-renderer';
 //import styles from '../styles';
-import { Container, styles} from '../index.js';
+import { Container, styles} from '../';
 
 // Note: test renderer must be required after react-native.
 

@@ -36,6 +36,6 @@
 	},
 	"jest": {
 		"preset": "react-native",
-		"collectCoverageFrom": ["src/*.js","src/**.js","src/***.js","src/****.js"]
+		"collectCoverageFrom": ["src/*.js","src/**.js","src/***.js","src/****.js", "src/*****.js"]
 	}
 }
