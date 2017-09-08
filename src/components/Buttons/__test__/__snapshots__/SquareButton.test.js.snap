@@ -1,0 +1,117 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SquareButton props onPress should call a function 1`] = `
+<TouchableOpacity
+  activeOpacity={0.2}
+  focusedOpacity={0.7}
+  onClick={[Function]}
+  onPress={[Function]}
+  style={
+    Array [
+      Object {
+        "borderRadius": 4,
+        "borderWidth": 5,
+      },
+      Object {
+        "backgroundColor": "transparent",
+        "borderColor": "#000",
+      },
+    ]
+  }
+>
+  <View
+    style={
+      Object {
+        "alignItems": "center",
+        "justifyContent": "center",
+      }
+    }
+  >
+    <Text
+      accessible={true}
+      allowFontScaling={false}
+      disabled={false}
+      ellipsizeMode="tail"
+      style={
+        Array [
+          Object {
+            "color": undefined,
+            "fontSize": 60,
+          },
+          Array [
+            undefined,
+            Object {
+              "color": "#000",
+            },
+          ],
+          Object {
+            "fontFamily": "Material Icons",
+            "fontStyle": "normal",
+            "fontWeight": "normal",
+          },
+        ]
+      }
+    >
+      
+    </Text>
+  </View>
+</TouchableOpacity>
+`;
+
+exports[`SquareButton should customize the button if icon name, color and size are set 1`] = `
+<TouchableOpacity
+  activeOpacity={0.2}
+  focusedOpacity={0.7}
+  onClick={undefined}
+  onPress={undefined}
+  style={
+    Array [
+      Object {
+        "borderRadius": 4,
+        "borderWidth": 5,
+      },
+      Object {
+        "backgroundColor": "blue",
+        "borderColor": "grey",
+      },
+    ]
+  }
+>
+  <View
+    style={
+      Object {
+        "alignItems": "center",
+        "justifyContent": "center",
+      }
+    }
+  >
+    <Text
+      accessible={true}
+      allowFontScaling={false}
+      disabled={false}
+      ellipsizeMode="tail"
+      style={
+        Array [
+          Object {
+            "color": undefined,
+            "fontSize": 40,
+          },
+          Array [
+            undefined,
+            Object {
+              "color": "green",
+            },
+          ],
+          Object {
+            "fontFamily": "Material Icons",
+            "fontStyle": "normal",
+            "fontWeight": "normal",
+          },
+        ]
+      }
+    >
+      
+    </Text>
+  </View>
+</TouchableOpacity>
+`;

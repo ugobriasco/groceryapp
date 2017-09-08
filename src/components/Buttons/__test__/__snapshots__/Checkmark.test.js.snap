@@ -29,3 +29,50 @@ exports[`renders a custom backgroundColor passed via props 1`] = `
   />
 </View>
 `;
+
+exports[`renders a void component if checkmark passed via props is false 1`] = `
+<View
+  style={
+    Array [
+      Object {
+        "alignItems": "center",
+        "backgroundColor": "transparent",
+        "borderRadius": 15,
+        "height": 30,
+        "justifyContent": "center",
+        "width": 30,
+      },
+    ]
+  }
+/>
+`;
+
+exports[`renders the defined background if isVisible is passed via props 1`] = `
+<View
+  style={
+    Array [
+      Object {
+        "alignItems": "center",
+        "backgroundColor": "transparent",
+        "borderRadius": 15,
+        "height": 30,
+        "justifyContent": "center",
+        "width": 30,
+      },
+      Object {
+        "backgroundColor": "#18bc9c",
+      },
+    ]
+  }
+>
+  <Image
+    resizeMode="contain"
+    source={1}
+    style={
+      Object {
+        "width": 18,
+      }
+    }
+  />
+</View>
+`;

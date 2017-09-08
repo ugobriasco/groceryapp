@@ -22,3 +22,13 @@ it('renders a custom backgroundColor passed via props', () => {
 	const rendered = renderer.create(<Checkmark iconBackground='red'/>);
 	expect(rendered).toMatchSnapshot();
 });
+
+it('renders the defined background if isVisible is passed via props', () => {
+	const rendered = renderer.create(<Checkmark isVisible={true}/>);
+	expect(rendered).toMatchSnapshot();
+});
+
+it('renders a void component if checkmark passed via props is false', () => {
+	const rendered = renderer.create(<Checkmark checkmark={false}/>);
+	expect(rendered).toMatchSnapshot();
+});
