@@ -13,12 +13,8 @@ import styles from './styles';
 //this is a stateless component
 const ListItem = ({
 	text, 
-	onPress, 
-	selected = false, 
-	checkmark = true, 
-	visible = true, 
-	customIcon = null, 
-	iconBackground
+	onPress,
+	customIcon = null,  
 }) => {
 
 	
@@ -40,11 +36,7 @@ ListItem.PropTypes = {
 
 	text: PropTypes.string,
 	onPress: PropTypes.func,
-	selected: PropTypes.bool,
-	visible: PropTypes.bool,
-	checkmark: PropTypes.bool,
 	customIcon: PropTypes.element,
-	iconBackground: PropTypes.string,
 	
 };
 
