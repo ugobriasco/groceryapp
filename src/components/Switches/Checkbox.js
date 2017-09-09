@@ -4,7 +4,7 @@ import {
 } from 'react-native';
 import Icon from  'react-native-vector-icons/MaterialIcons';
 import styles from './styles';
-
+import PropTypes from 'prop-types';
 
 const Checkbox = ({isChecked, onPress, size}) => {
 
@@ -18,7 +18,7 @@ const Checkbox = ({isChecked, onPress, size}) => {
 				color='#777'
 				backgroundColor ='rgba(0,0,0,0)'
 				underlayColor ='rgba(0,0,0,0)'
-				size = {size ? size : 30}
+				size = {size ? parseInt(size) : 30}
 				iconStyle={{marginLeft: 0, marginRight: 0}}
 				activeOpacity={1}
 				borderRadius={5}
@@ -30,5 +30,11 @@ const Checkbox = ({isChecked, onPress, size}) => {
 
 	);
 };
+
+Checkbox.PropTypes = {
+	isChecked: PropTypes.bool,
+	onPress: PropTypes.func,
+	size: PropTypes.string
+}
 
 export default Checkbox;

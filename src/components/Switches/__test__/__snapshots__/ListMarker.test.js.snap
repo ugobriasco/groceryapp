@@ -1,0 +1,39 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ListMarker size stzling props should render an icon with a given color if isChecked=true 1`] = `
+<View
+  style={undefined}
+>
+  <Text
+    accessible={true}
+    allowFontScaling={false}
+    backgroundColor="rgba(0,0,0,0)"
+    disabled={false}
+    ellipsizeMode="tail"
+    style={
+      Array [
+        Object {
+          "color": "red",
+          "fontSize": 30,
+        },
+        undefined,
+        Object {
+          "fontFamily": "Material Icons",
+          "fontStyle": "normal",
+          "fontWeight": "normal",
+        },
+      ]
+    }
+  >
+    
+  </Text>
+</View>
+`;
+
+exports[`ListMarker size stzling props should render an icon with the selected size 1`] = `
+<View
+  style={undefined}
+>
+  <View />
+</View>
+`;

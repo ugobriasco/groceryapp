@@ -2,6 +2,7 @@ import React from 'react';
 import { View } from 'react-native';
 import styles from './styles'; 
 import Icon from  'react-native-vector-icons/MaterialIcons';
+import PropTypes from 'prop-types'
 
 
 const ListMarker = ({isChecked, color}) => {
@@ -24,6 +25,11 @@ const ListMarker = ({isChecked, color}) => {
 
 
 	);
+}
+
+ListMarker.PropTypes = {
+	isChecked: PropTypes.bool,
+	color: PropTypes.string,
 }
 
 export default ListMarker;

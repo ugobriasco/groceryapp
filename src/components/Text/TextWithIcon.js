@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import styles from './styles';
 import Icon from  'react-native-vector-icons/MaterialIcons';
 
-const TextWithIcon = ({text, backgroundColor, textColor, iconName, align}) => {
+const TextWithIcon = ({text, backgroundColor, textColor, iconName}) => {
 
 	let wrapperStyle = [styles.text_with_icon_box];
 	let textStyle = [styles.text_with_icon_text];
@@ -19,6 +19,13 @@ const TextWithIcon = ({text, backgroundColor, textColor, iconName, align}) => {
 			<Text style={textStyle}>{text}</Text>
         </View>
 	);	
+}
+
+TextWithIcon.PropTypes = {
+	text: PropTypes.string,
+	backgroundColor: PropTypes.string,
+	textColor: PropTypes.string,
+	iconName: PropTypes.string,
 }
 
 export default TextWithIcon;

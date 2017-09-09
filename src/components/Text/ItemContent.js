@@ -23,4 +23,11 @@ const ItemContent = ({title, subtitle1, subtitle2, color}) => {
 
 }
 
+ItemContent.PropTypes = {
+	title: PropTypes.string,
+	subtitle1: PropTypes.string,
+	subtitle2: PropTypes.string,
+	color: PropTypes.string
+}
+
 export default ItemContent;
