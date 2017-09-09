@@ -1,0 +1,45 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Logo customization props should customize the logo dimension, proportion, and colors 1`] = `
+<View
+  style={undefined}
+>
+  <Image
+    resizeMode="contain"
+    source={1}
+    style={
+      Array [
+        undefined,
+        Object {
+          "height": 200,
+          "tintColor": "blue",
+          "width": 200,
+        },
+      ]
+    }
+  >
+    <Image
+      resizeMode="contain"
+      source={1}
+      style={
+        Array [
+          undefined,
+          Object {
+            "tintColor": "red",
+            "width": 66.66666666666667,
+          },
+        ]
+      }
+    />
+  </Image>
+  <Text
+    accessible={true}
+    allowFontScaling={true}
+    disabled={false}
+    ellipsizeMode="tail"
+    style={undefined}
+  >
+    The GroceryApp
+  </Text>
+</View>
+`;

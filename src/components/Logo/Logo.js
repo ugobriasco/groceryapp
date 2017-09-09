@@ -16,10 +16,13 @@ const Logo = ({imageColor, customWidth, backgroundColor, ratio}) => {
   //logo customization via component input
   let containerImageWidth = DEFAULT_WIDTH;
   if(customWidth) containerImageWidth = parseInt(customWidth);
-  let contianerImageRatio = 1.4;
+  
+  let containerImageRatio = 1.4;
   if(ratio) containerImageRatio = parseFloat(ratio);
+  
   let imgColor = DEFAULT_TINT;
   if(imageColor) imgColor = imageColor;
+  
   let bgColor = DEFAULT_BG;
   if(backgroundColor) bgColor = backgroundColor;
 
